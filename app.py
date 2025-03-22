@@ -17,7 +17,7 @@ def index():
 	if request.method == "POST":
 		conn = get_db_conn()
 		cur = conn.cursor()
-		cur.execute(f"insert into public.hotel_chain values('{request.form["chain_name"]}', {request.form["num_hotels"]});")
+		cur.execute("insert into hotel_chain values('{}', {});".format(request.form["chain_name"], request.form["num_hotels"]))
 		conn.commit()
 		cur.close()
 		conn.close()
@@ -26,7 +26,7 @@ def index():
 	else:
 		conn = get_db_conn()
 		cur = conn.cursor()
-		cur.execute("select * from public.hotel_chain")
+		cur.execute("select * from hotel_chain")
 		hotel_chains = cur.fetchall()
 		cur.close()
 		conn.close()
