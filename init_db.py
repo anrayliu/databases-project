@@ -23,6 +23,21 @@ insert into hotel_chain values('123 hotel w me', 1000);
 insert into hotel_chain values('im baked hotels', 1);
 ''')
 
+cur.execute("drop table if exists chain_addresses;")
+
+cur.execute('''create table chain_addresses (
+                    chain_name varchar(30),
+                    central_address varchar(30)
+                );
+            ''')
+
+cur.execute('''
+insert into chain_addresses values('Ottawa Hotels', '239 Rideau Street');
+insert into chain_addresses values('Bob Hotels', '35 Elgin Street');
+insert into chain_addresses values('123 hotel w me', '555 Dundurn Avenue');
+insert into chain_addresses values('im baked hotels', '53 Sandy Hill Street');
+''')
+
 
 conn.commit()
 
