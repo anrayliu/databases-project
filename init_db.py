@@ -79,7 +79,7 @@ cur.execute("drop table if exists hotel;")
 cur.execute('''create table hotel (
                     email varchar(30),
                     rating int,
-                    num_rooms int,
+                    num_rooms int unsigned,
                     hotel_address varchar(30),
                     chain_name varchar(30),
                     manager varchar(30),
