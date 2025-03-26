@@ -28,6 +28,7 @@ cur.execute("drop table if exists chain_addresses;")
 cur.execute('''create table chain_addresses (
                     chain_name varchar(30),
                     central_address varchar(30)
+                    CONSTRAINT PK_chain_addresses PRIMARY KEY (chain_name, central_address)
                 );
             ''')
 
@@ -43,6 +44,7 @@ cur.execute("drop table if exists chain_emails;")
 cur.execute('''create table chain_emails (
                     chain_name varchar(30),
                     central_email varchar(30)
+                    CONSTRAINT PK_chain_emails PRIMARY KEY (chain_name, central_email)
                 );
             ''')
 
@@ -58,6 +60,7 @@ cur.execute("drop table if exists chain_phone_num;")
 cur.execute('''create table chain_phone_num (
                     chain_name varchar(30),
                     central_phone_num varchar(30)
+                    CONSTRAINT PK_chain_phone_num PRIMARY KEY (chain_name, central_phone_num)
                 );
             ''')
 
@@ -77,6 +80,7 @@ cur.execute('''create table hotel (
                     hotel_address varchar(30),
                     chain_name varchar(30),
                     manager varchar(30)
+                    CONSTRAINT PK_hotel PRIMARY KEY (email, rating, num_rooms, hotel_address, chain_name)
                 );
             ''')
 
@@ -93,6 +97,7 @@ cur.execute('''create table hotel_phone_num (
                     chain_name varchar(30),
                     hotel_address varchar(30),
                     phone_num varchar(30)
+                    CONSTRAINT PK_hotel_phone_num PRIMARY KEY (chain_name, hotel_address, phone_num)
                 );
             ''')
 
@@ -104,6 +109,7 @@ cur.execute('''create table customer (
                     name varchar(30),
                     customer_address varchar(30),
                     date varchar(30)
+                    PRIMARY KEY(id)
                 );
             ''')
 
@@ -113,6 +119,7 @@ cur.execute('''create table employee (
                     employee_name varchar(30),
                     employee_address varchar(30),
                     ssn int
+                    PRIMARY KEY(ssn)
                 );
             ''')
 
