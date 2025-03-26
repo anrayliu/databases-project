@@ -16,12 +16,12 @@ cur.execute('''create table hotel_chain (
                 );
             ''')
 
-cur.execute('''
-insert into hotel_chain values('Ottawa Hotels', 5);
-insert into hotel_chain values('Bob Hotels', 100);
-insert into hotel_chain values('123 hotel w me', 1000);
-insert into hotel_chain values('im baked hotels', 1);
-''')
+#cur.execute('''
+#insert into hotel_chain values('Ottawa Hotels', 5);
+#insert into hotel_chain values('Bob Hotels', 100);
+#insert into hotel_chain values('123 hotel w me', 1000);
+#insert into hotel_chain values('im baked hotels', 1);
+#''')
 
 cur.execute("drop table if exists chain_addresses;")
 
