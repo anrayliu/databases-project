@@ -7,21 +7,21 @@ cur = conn.cursor()
 
 cur.execute('set search_path to "public";')
 
-cur.execute("drop table if exists hotel_chain;")
+cur.execute("drop table if exists hotel_chain cascade;")
 
 cur.execute('''create table hotel_chain (
                     chain_name varchar(30),
-                    num_hotels int,
+                    num_hotels int check (num_hotels >= 0),
                     primary key(chain_name)
                 );
             ''')
 
-#cur.execute('''
-#insert into hotel_chain values('Ottawa Hotels', 5);
-#insert into hotel_chain values('Bob Hotels', 100);
-#insert into hotel_chain values('123 hotel w me', 1000);
-#insert into hotel_chain values('im baked hotels', 1);
-#''')
+cur.execute('''
+insert into hotel_chain values('Ottawa Hotels', 5);
+insert into hotel_chain values('Bob Hotels', 100);
+insert into hotel_chain values('123 hotel w me', 1000);
+insert into hotel_chain values('im baked hotels', 1);
+''')
 
 cur.execute("drop table if exists chain_addresses;")
 
@@ -74,16 +74,19 @@ cur.execute('''create table chain_phone_num (
 #insert into chain_phone_num values('im baked hotels', '284-597-0004');
 #''')
 
-cur.execute("drop table if exists hotel;")
+# removed rating, num_rooms, and email from primary key
+
+cur.execute("drop table if exists hotel cascade;")
 
 cur.execute('''create table hotel (
                     email varchar(30),
                     rating int,
-                    num_rooms int unsigned,
+                    num_rooms int,
                     hotel_address varchar(30),
                     chain_name varchar(30),
                     manager varchar(30),
-                    CONSTRAINT PK_hotel PRIMARY KEY (email, rating, num_rooms, hotel_address, chain_name)
+                    CONSTRAINT PK_hotel PRIMARY KEY (chain_name, hotel_address),
+                    foreign key (chain_name) references hotel_chain (chain_name)
                 );
             ''')
 
@@ -101,57 +104,62 @@ cur.execute('''create table hotel_phone_num (
                     hotel_address varchar(30),
                     phone_num varchar(30),
                     CONSTRAINT PK_hotel_phone_num PRIMARY KEY (chain_name, hotel_address, phone_num),
-                    foreign key (chain_name) references hotel_chain (chain_name),
-                    foreign key (hotel_address) references hotel (hotel_address)
+                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address)
                 );
             ''')
 
-cur.execute("drop table if exists customer;")
+cur.execute("drop table if exists customer cascade;")
 
 cur.execute('''create table customer (
                     id int,
                     customer_name varchar(30),
                     name varchar(30),
                     customer_address varchar(30),
-                    date varchar(30)
+                    date varchar(30),
                     PRIMARY KEY(id)
                 );
             ''')
 
-cur.execute("drop table if exists employee;")
+cur.execute("drop table if exists employee cascade;")
 
 cur.execute('''create table employee (
                     employee_name varchar(30),
                     employee_address varchar(30),
-                    ssn int
+                    ssn int,
                     PRIMARY KEY(ssn)
                 );
             ''')
 
 
-cur.execute("drop table if exists booking;")
+# why is renting_id in booking?
+# removed:
+# renting_id int,
+# foreign key (renting_id) references renting (renting_id)
+
+cur.execute("drop table if exists booking cascade;")
 
 cur.execute('''create table booking (
                     customer_id int,
                     booking_id int,
-                    renting_id int,
                     constraint pk_booking primary key (customer_id, booking_id),
-                    foreign key (customer_id) references customer (id),
-                    foreign key (renting_id) references renting (renting_id)
+                    foreign key (customer_id) references customer (id)
                 );
             ''')
 
-cur.execute("drop table if exists renting;")
+# also removed booking_id from renting
+# removed:
+# booking_id int,
+# foreign key (booking_id) references booking (booking_id)
+
+cur.execute("drop table if exists renting cascade;")
 
 cur.execute('''create table renting (
                     customer_id int,
                     ssn int,
                     renting_id int,
-                    booking_id int,
                     constraint pk_renting primary key (customer_id, renting_id),
                     foreign key (customer_id) references customer (id),
-                    foreign key (ssn) references employee (ssn),
-                    foreign key (booking_id) references booking (booking_id)
+                    foreign key (ssn) references employee (ssn)
                 );
             ''')
 
@@ -163,8 +171,7 @@ cur.execute('''create table works_at (
                     ssn int, 
                     role varchar(30),
                     constraint pk_works_at primary key (chain_name, hotel_address, ssn),
-                    foreign key (chain_name) references hotel_chain (chain name),
-                    foreign key (hotel_address) references hotel (hotel_address),
+                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address),
                     foreign key (ssn) references employee (ssn)
                 );
             ''')
@@ -175,13 +182,12 @@ cur.execute('''create table room (
                     hotel_address varchar(30),
                     chain_name varchar(30),
                     expandable boolean,
-                    price float unsigned,
+                    price float check (price >= 0),
                     capacity int,
                     view varchar(30),
                     constraint pk_room primary key (hotel_address, chain_name, expandable, price, capacity, view),
-                    constraint chk_view check (frequecy in ('mountain', 'ocean')),
-                    foreign key (chain_name) references hotel_chain (chain_name),
-                    foreign key (hotel_address) references hotel (hotel_address)
+                    constraint chk_view check (view = 'mountain' or view = 'ocean'),
+                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address)
                 );
             ''')
 
@@ -192,8 +198,7 @@ cur.execute('''create table amenities (
                     hotel_address varchar(30),
                     amenity varchar(30),
                     constraint pk_amenities primary key (chain_name, hotel_address, amenity),
-                    foreign key (chain_name) references hotel_chain (chain_name),
-                    foreign key (hotel_address) references hotel (hotel_address)
+                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address)
                 );
             ''')
 
@@ -204,30 +209,31 @@ cur.execute('''create table damage (
                     hotel_address varchar(30),
                     damage varchar(30),
                     constraint pk_damage primary key (chain_name, hotel_address, damage),
-                    foreign key (chain_name) references hotel_chain (chain_name),
-                    foreign key (hotel_address) references hotel (hotel_address)
+                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address)
                 );
             ''')
 
 cur.execute("drop table if exists booking_history;")
 
 cur.execute('''create table booking_history (
+                    customer_id int,
                     booking_id int,
                     past_booking_id int,
-                    constraint pk_booking_history primary key (booking_id, past_booking_id),
-                    foreign key (booking_id) references booking (booking_id),
-                    foreign key (past_booking_id) references booking (booking_id)
+                    constraint pk_booking_history primary key (customer_id, booking_id, past_booking_id),
+                    foreign key (customer_id, booking_id) references booking (customer_id, booking_id),
+                    foreign key (customer_id, past_booking_id) references booking (customer_id, booking_id)
                 );
             ''')
 
 cur.execute("drop table if exists renting_history;")
 
 cur.execute('''create table renting_history (
+                    customer_id int,
                     renting_id int,
                     past_renting_id int,
-                    constraint pk_renting_history primary key (renting_id, past_renting_id),
-                    foreign key (renting_id) references renting (renting_id),
-                    foreign key (past_renting_id) references renting (renting_id)
+                    constraint pk_renting_history primary key (customer_id, renting_id, past_renting_id),
+                    foreign key (customer_id, renting_id) references renting (customer_id, renting_id),
+                    foreign key (customer_id, past_renting_id) references renting (customer_id, renting_id)
                 );
             ''')
 
