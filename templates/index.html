@@ -7,16 +7,38 @@
 
 
 {% block body %}
+<div class="content">
 	
 	<h1>Hotel chains</h1>
 
-	{% for chain in hotel_chains %}
-		<div>
-			<h3>#{{ chain[0] }} - {{ chain[1] }}</h3>
-		</div>
-	{% endfor %}
+	{% if hotel_chains | length < 1 %}
+	<h3>No hotel chains found.</h3>
+	{% else %}
+
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Locations</th>
+		</tr>
+		{% for chain in hotel_chains %}
+		<tr>
+			<td>{{chain[0]}}</td>
+			<td>{{chain[1]}}</td>
+			<td>
+				<a href="/delete/{{chain[0]}}">Delete</a>
+
+				<br>
+				
+				<a href="/edit/{{chain[0]}}">Edit</a>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
 
 	<br>
+
+	<h2>Add chain</h2> 
 
 	<form action="/" method="POST">
 		<label for="chain_name">Chain name:</label>
@@ -34,6 +56,6 @@
 	</form>
 
 
-
+</div>
 {% endblock %}
 
