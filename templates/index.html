@@ -7,16 +7,51 @@
 
 
 {% block body %}
+<<<<<<< Updated upstream
+<div class="content">
 	
+=======
+
+	<form action="/" method="POST">
+		<label for="hotel_address">Location:</label>
+		<input name="hotel_address" id="hotel_address" type="text">
+
+		<label for="capacity">Travelers:</label>
+		<input name="capacity" id="capacity" type="number" step="0">
+
+		<input type="reset">
+		<input type="submit">
+	</form>
+
 	<h1>Hotel chains</h1>
 
-	{% for chain in hotel_chains %}
-		<div>
-			<h3>#{{ chain[0] }} - {{ chain[1] }}</h3>
-		</div>
-	{% endfor %}
+	{% if hotel_chains | length < 1 %}
+	<h3>No hotel chains found.</h3>
+	{% else %}
+
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Locations</th>
+		</tr>
+		{% for chain in hotel_chains %}
+		<tr>
+			<td>{{chain[0]}}</td>
+			<td>{{chain[1]}}</td>
+			<td>
+				<a href="/delete/{{chain[0]}}">Delete</a>
+
+				<br>
+				
+				<a href="/edit/{{chain[0]}}">Edit</a>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
 
 	<br>
+	<h2>Add chain</h2> 
 
 	<form action="/" method="POST">
 		<label for="chain_name">Chain name:</label>
@@ -33,7 +68,47 @@
 		<input type="submit">
 	</form>
 
+	<br>
+	<h2>Search</h2> 
 
+	<form action="/results" method="GET">
+		<label for="start_date">Start date:</label>
+		<input name="start_date" id="start_date" type="date">
+		
+		<label for="end_date">End date:</label>
+		<input name="end_date" id="end_date" type="date">
+
+		<label for="capacity">Room capacity:</label>
+		<input name="capacity" id="capacity" type="number" step="0">
+
+		<label for="total_capacity">Total capacity:</label>
+		<input name="total_capacity" id="total_capacity" type="number" step="0">
+
+		<label for="chain">Chain:</label>
+		<select name="chain" id="chain">
+			{% for chain in hotel_chains %}
+			<option value={{chain[0]}}>{{chain[0]}}</option>
+			{% endfor %}
+		</select>
+
+		<label for="location">Location:</label>
+		<select name="location" id="location">
+			{% for hotel in hotels %}
+			<option value={{hotel[3]}}>{{hotel[3]}}</option>
+			{% endfor %}
+		</select>
+
+		<label for="price">Price under:</label>
+		<input name="price" id="price" type="number" step="0.01">
+
+		<br>
+
+		<input type="reset">
+		<input type="submit">
+	</form>
+
+
+</div>
 
 {% endblock %}
 
