@@ -7,8 +7,22 @@
 
 
 {% block body %}
+<<<<<<< Updated upstream
 <div class="content">
 	
+=======
+
+	<form action="/" method="POST">
+		<label for="hotel_address">Location:</label>
+		<input name="hotel_address" id="hotel_address" type="text">
+
+		<label for="capacity">Travelers:</label>
+		<input name="capacity" id="capacity" type="number" step="0">
+
+		<input type="reset">
+		<input type="submit">
+	</form>
+
 	<h1>Hotel chains</h1>
 
 	{% if hotel_chains | length < 1 %}
@@ -95,5 +109,6 @@
 
 
 </div>
+
 {% endblock %}
 
