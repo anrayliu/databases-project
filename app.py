@@ -70,6 +70,7 @@ def edit(id):
 
 @app.route("/results")
 def show_results():
+
 	start = request.args.get("start_date")
 	end = request.args.get("end_date")
 	capacity = request.args.get("capacity")
@@ -78,14 +79,20 @@ def show_results():
 	loc = request.args.get("location")
 	price = request.args.get("price")
 
+
 	try:
 		cur.execute('''
-					select * from room join hotel on room.chain_name=hotel.chain_name and room.chain_name='{}'
-						and num_rooms={} and capacity={} and hotel_address='{}' and price<{};				
+					select * from room join hotel on room.chain_name=hotel.chain_name where room.chain_name='{}'
+						and num_rooms={} and capacity={} and room.hotel_address='{}' and price<={};				
+					'''.format(chain, total, capacity, loc, price))
+		print('''
+					select * from room join hotel on room.chain_name=hotel.chain_name where room.chain_name='{}'
+						and num_rooms={} and capacity={} and room.hotel_address='{}' and price<={};				
 					'''.format(chain, total, capacity, loc, price))
 		res = cur.fetchall()
 
-	except psycopg2.Error:
+	except psycopg2.Error as e:
+		print(e)
 		conn.rollback()
 		return "something went seriously wrong"
 
