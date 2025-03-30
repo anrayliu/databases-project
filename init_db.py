@@ -362,13 +362,14 @@ insert into works_at values('Ottawa Hotels', '550 Main Street', 100040123, 'Port
 cur.execute("drop table if exists room;")
 
 cur.execute('''create table room (
+                    room_id varchar(30),
                     hotel_address varchar(30),
                     chain_name varchar(30),
                     expandable boolean,
                     price float check (price >= 0),
                     capacity int,
                     view varchar(30),
-                    constraint pk_room primary key (hotel_address, chain_name, expandable, price, capacity, view),
+                    constraint pk_room primary key (hotel_address, chain_name, room_id),
                     constraint chk_view check (view = 'mountain' or view = 'ocean'),
                     foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address)
                 );
@@ -662,9 +663,10 @@ insert into room values('550 Main Street', 'Rosenblatt Hotels', true, 510.00, 7,
 cur.execute('''create table amenities (
                     chain_name varchar(30),
                     hotel_address varchar(30),
+                    room_id int,
                     amenity varchar(30),
-                    constraint pk_amenities primary key (chain_name, hotel_address, amenity),
-                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address)
+                    constraint pk_amenities primary key (chain_name, hotel_address, room_id, amenity),
+                    foreign key (chain_name, hotel_address, room_id) references room (chain_name, hotel_address, room_id)
                 );
             ''')
 
@@ -948,7 +950,6 @@ insert into amenities values('Rosenblatt Hotels', '550 Main Street', 'Gym');
 insert into amenities values('Rosenblatt Hotels', '550 Main Street', 'Pool');
 insert into amenities values('Rosenblatt Hotels', '550 Main Street', 'Breakfast');
 insert into amenities values('Rosenblatt Hotels', '550 Main Street', 'Parking');
-
 ''')
 
 cur.execute("drop table if exists damage;")
@@ -956,9 +957,10 @@ cur.execute("drop table if exists damage;")
 cur.execute('''create table damage (
                     chain_name varchar(30),
                     hotel_address varchar(30),
+                    room_id int,
                     damage varchar(30),
-                    constraint pk_damage primary key (chain_name, hotel_address, damage),
-                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address)
+                    constraint pk_damage primary key (chain_name, hotel_address, room_id, damage),
+                    foreign key (chain_name, hotel_address, room_id) references room (chain_name, hotel_address, room_id)
                 );
             ''')
 
