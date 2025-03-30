@@ -86,9 +86,14 @@ def show_results():
 		if (int(request.args.get("price")) < 0):
 			conn.rollback()
 			return "Please enter a positive value under price."
+
+		print('''
+					select * from room join hotel on room.chain_name=hotel.chain_name and room.chain_name='{}'
+						and hotel.num_rooms={} and room.capacity={} and hotel.hotel_address='{}' and room.price<{};				
+					'''.format(chain, total, capacity, loc, price))
 		cur.execute('''
 					select * from room join hotel on room.chain_name=hotel.chain_name and room.chain_name='{}'
-						and num_rooms={} and capacity={} and hotel_address='{}' and price<{};				
+						and hotel.num_rooms={} and room.capacity={} and hotel.hotel_address='{}' and room.price<{};				
 					'''.format(chain, total, capacity, loc, price))
 		res = cur.fetchall()
 
