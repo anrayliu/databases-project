@@ -968,6 +968,136 @@ cur.execute('''create table damage (
                 );
             ''')
 
+cur.execute('''
+-- Ottawa Hotels - 303 Sandy Street
+insert into damage values('Ottawa Hotels', '303 Sandy Street', 100001, 'heating');
+insert into damage values('Ottawa Hotels', '303 Sandy Street', 100004, 'bedbugs');
+
+-- Ottawa Hotels - 402 Tremblent Way
+insert into damage values('Ottawa Hotels', '402 Tremblent Way', 100006, 'showerhead');
+insert into damage values('Ottawa Hotels', '402 Tremblent Way', 100009, 'bedbugs');
+
+-- Ottawa Hotels - 45 Elgin Street
+insert into damage values('Ottawa Hotels', '45 Elgin Street', 100011, 'bedbugs');
+insert into damage values('Ottawa Hotels', '45 Elgin Street', 100012, 'heating');
+
+-- Ottawa Hotels - 201 Rideau Street
+insert into damage values('Ottawa Hotels', '201 Rideau Street', 100016, 'heating');
+insert into damage values('Ottawa Hotels', '201 Rideau Street', 100020, 'heating');
+
+-- Ottawa Hotels - 39 Snow Drive
+insert into damage values('Ottawa Hotels', '39 Snow Drive', 100021, 'showerhead');
+insert into damage values('Ottawa Hotels', '39 Snow Drive', 100023, 'bedbugs');
+
+-- Ottawa Hotels - 17 Autumn Street
+insert into damage values('Ottawa Hotels', '17 Autumn Street', 100026, 'heating');
+insert into damage values('Ottawa Hotels', '17 Autumn Street', 100028, 'bedbugs');
+
+-- Ottawa Hotels - 92 Pineview Crescent
+insert into damage values('Ottawa Hotels', '92 Pineview Crescent', 100031, 'heating');
+insert into damage values('Ottawa Hotels', '92 Pineview Crescent', 100033, 'bedbugs');
+
+-- Ottawa Hotels - 14 Pleasant Park Road
+insert into damage values('Ottawa Hotels', '14 Pleasant Park Road', 100036, 'showerhead');
+insert into damage values('Ottawa Hotels', '14 Pleasant Park Road', 100037, 'heating');
+
+-- Comfort Stay - 333 Bresserer Street
+insert into damage values('Comfort Stay', '333 Bresserer Street', 100042, 'ceiling_leakage');
+
+-- Comfort Stay - 154 Wrightville Way
+insert into damage values('Comfort Stay', '154 Wrightville Way', 100046, 'bedbugs');
+
+-- Comfort Stay - 46 Elgin Street
+insert into damage values('Comfort Stay', '46 Elgin Street', 100053, 'showerhead');
+
+-- Comfort Stay - 30 Qualicum Street
+insert into damage values('Comfort Stay', '30 Qualicum Street', 100056, 'heating');
+
+-- Comfort Stay - 53 Ascot Avenue
+insert into damage values('Comfort Stay', '53 Ascot Avenue', 100061, 'heating');
+
+-- Comfort Stay - 62 Seyton Drive
+insert into damage values('Comfort Stay', '62 Seyton Drive', 100066, 'bedbugs');
+
+-- Comfort Stay - 38 McClellan Road
+insert into damage values('Comfort Stay', '38 McClellan Road', 100073, 'ceiling_leakage');
+
+-- Comfort Stay - 48 Capital Drive
+insert into damage values('Comfort Stay', '48 Capital Drive', 100077, 'heating');
+
+-- Maximize Hotels - 59 Main Street
+insert into damage values('Maximize Hotels', '59 Main Street', 100083, 'ceiling_leakage');
+
+-- Maximize Hotels - 72 Broadway Ave
+insert into damage values('Maximize Hotels', '72 Broadway Ave', 100086, 'showerhead');
+
+-- Maximize Hotels - 15 Rue de la Paix
+insert into damage values('Maximize Hotels', '15 Rue de la Paix', 100091, 'bedbugs');
+
+-- Maximize Hotels - 100 Sunset Blvd
+insert into damage values('Maximize Hotels', '100 Sunset Blvd', 100096, 'heating');
+
+-- Maximize Hotels - 47 Oxford Street
+insert into damage values('Maximize Hotels', '47 Oxford Street', 100101, 'heating');
+
+-- Maximize Hotels - 300 Shibuya Crossing
+insert into damage values('Maximize Hotels', '300 Shibuya Crossing', 100108, 'ceiling_leakage');
+
+-- Maximize Hotels - 100 Mountain View Road
+insert into damage values('Maximize Hotels', '100 Mountain View Road', 100113, 'showerhead');
+
+-- Maximize Hotels - 21 Beachside Drive
+insert into damage values('Maximize Hotels', '21 Beachside Drive', 100116, 'bedbugs');
+
+-- Klaradon - 35 Lakeshore Drive
+insert into damage values('Klaradon', '35 Lakeshore Drive', 100121, 'showerhead');
+
+-- Klaradon - 35 Humphrey Drive
+insert into damage values('Klaradon', '35 Humphrey Drive', 100130, 'heating');
+
+-- Klaradon - 45 Queen Street
+insert into damage values('Klaradon', '45 Queen Street', 100134, 'ceiling_leakage');
+
+-- Klaradon - 120 Pacific Blvd
+insert into damage values('Klaradon', '120 Pacific Blvd', 100137, 'showerhead');
+
+-- Klaradon - 60 Elgin Street
+insert into damage values('Klaradon', '60 Elgin Street', 100144, 'bedbugs');
+
+-- Klaradon - 10 Calgary Road
+insert into damage values('Klaradon', '10 Calgary Road', 100149, 'heating');
+
+-- Klaradon - 75 Saint Catherine Street
+insert into damage values('Klaradon', '75 Saint Catherine Street', 100152, 'showerhead');
+
+-- Klaradon - 22 Old Port Road
+insert into damage values('Klaradon', '22 Old Port Road', 100159, 'heating');
+
+-- Rosenblatt Hotels - 812 Stittsville Street
+insert into damage values('Rosenblatt Hotels', '812 Stittsville Street', 100163, 'heating');
+
+-- Rosenblatt Hotels - 214 Granville Street
+insert into damage values('Rosenblatt Hotels', '214 Granville Street', 100170, 'showerhead');
+
+-- Rosenblatt Hotels - 67 Crescent Street
+insert into damage values('Rosenblatt Hotels', '67 Crescent Street', 100172, 'ceiling_leakage');
+
+-- Rosenblatt Hotels - 98 16th Avenue NW
+insert into damage values('Rosenblatt Hotels', '98 16th Avenue NW', 100179, 'heating');
+
+-- Rosenblatt Hotels - 45 Wellington Street
+insert into damage values('Rosenblatt Hotels', '45 Wellington Street', 100184, 'bedbugs');
+
+-- Rosenblatt Hotels - 50 Rue Saint-Jean
+insert into damage values('Rosenblatt Hotels', '50 Rue Saint-Jean', 100189, 'showerhead');
+
+-- Rosenblatt Hotels - 123 Jasper Avenue
+insert into damage values('Rosenblatt Hotels', '123 Jasper Avenue', 100193, 'heating');
+
+-- Rosenblatt Hotels - 550 Main Street
+insert into damage values('Rosenblatt Hotels', '550 Main Street', 100199, 'ceiling_leakage');
+''')
+
 cur.execute("drop table if exists booking_history;")
 
 cur.execute('''create table booking_history (
