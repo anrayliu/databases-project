@@ -83,7 +83,7 @@ insert into chain_phone_num values('Rosenblatt Hotels', '338-893-8184');
 cur.execute("drop table if exists hotel cascade;")
 
 cur.execute('''create table hotel (
-                    email varchar(30),
+                    email varchar(60),
                     rating int,
                     num_rooms int,
                     hotel_address varchar(30),
@@ -228,7 +228,7 @@ cur.execute('''create table employee (
                 );
             ''')
 
-cur.execut('''
+cur.execute('''
 insert into employee values('John Doe', '123 Elm St', 100001234);
 insert into employee values('Jane Smith', '456 Oak St', 100002345);
 insert into employee values('Alice Johnson', '789 Pine St', 100003456);
@@ -356,13 +356,13 @@ insert into works_at values('Ottawa Hotels', '39 Snow Drive', 100036789, 'Securi
 insert into works_at values('Ottawa Hotels', '17 Autumn Street', 100037890, 'Concierge');
 insert into works_at values('Ottawa Hotels', '92 Pineview Crescent', 100038901, 'Chef');
 insert into works_at values('Ottawa Hotels', '14 Pleasant Park Road', 100039012, 'Waiter');
-insert into works_at values('Ottawa Hotels', '550 Main Street', 100040123, 'Porter');
+insert into works_at values('Ottawa Hotels', '92 Pineview Crescent', 100040123, 'Porter');
 ''')
 
 cur.execute("drop table if exists room;")
 
 cur.execute('''create table room (
-                    room_id varchar(30),
+                    room_id int,
                     hotel_address varchar(30),
                     chain_name varchar(30),
                     expandable boolean,
