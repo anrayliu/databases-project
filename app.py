@@ -13,11 +13,34 @@ def get_db_conn():
 							password=os.environ["DB_PASSWORD"])
 	return conn
 
-@app.route("/login")
+@app.route("/login", methods=["POST", "GET"])
 def login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        try:
+            cur.execute("select customer_name from customer where customer_name = '{}';".format(username))
+            database_username = cur.fetchone()
+
+            if ((database_username is not None) and (username == str(database_username[0]))):
+                cur.execute("select password from customer where customer_name = '{}'".format(username))
+                database_password = cur.fetchone()
+
+                if ((database_username is not None) and (password == str(database_password[0]))):
+                    return redirect("/")
+                else:
+                    return redirect("/login")
+            else:
+                return redirect("/login")
+
+        except psycopg2.Error:
+            conn.rollback()
+            return "something went seriously wrong"
+
     return render_template("login.html")
 
-@app.route("/register")
+@app.route("/register", methods=["POST", "GET"])
 def register():
     return render_template("register.html")
 
