@@ -20,37 +20,3 @@ h2 {
 	font-family: "Lato", sans-serif;
 
 }
-
-/*
-.header {
-	padding: 30px;
-	text-align: center;
-	background: #a6a6a6;
-}
-*/
-
-.header {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	background-color: white;
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	padding: 10px;
-	gap: 10px;
-	position: relative;
-}
-
-.header-input {
-	font-size: 1em;
-	color: #333;
-	border: none;
-	background: none;
-	outline: none;
-	width: 100%;
-}
-
-.header h2 {
-	color:black;
-	font-family: "Lato", sans-serif;
-}

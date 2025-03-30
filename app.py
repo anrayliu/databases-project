@@ -13,6 +13,13 @@ def get_db_conn():
 							password=os.environ["DB_PASSWORD"])
 	return conn
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/register")
+def register():
+    return render_template("register.html")
 
 @app.route("/", methods=["POST", "GET"])
 def index(): 

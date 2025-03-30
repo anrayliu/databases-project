@@ -206,15 +206,16 @@ cur.execute('''create table customer (
                     customer_name varchar(30),
                     customer_address varchar(30),
                     date varchar(30),
+                    password varchar(30),
                     PRIMARY KEY(id)
                 );
             ''')
 cur.execute('''
-insert into customer values('000000', 'Valentino Vinod', '720 Rideau Street', '28/03/20');
-insert into customer values('000001', 'Anray Liu', '100 Rideau Street', '13/02/23');
-insert into customer values('000002', 'Adam Rosenblatt', '382 Markhamm Way', '05/10/24');
-insert into customer values('000003', 'Manny Matthews', '48 Blue Sky Way', '20/01/25');
-insert into customer values('000004', 'Maradin Leo', '34 Wacky Street', '14/08/25');
+insert into customer values('000000', 'Valentino Vinod', '720 Rideau Street', '28/03/20', 'password1');
+insert into customer values('000001', 'Anray Liu', '100 Rideau Street', '13/02/23', '123456789');
+insert into customer values('000002', 'Adam Rosenblatt', '382 Markhamm Way', '05/10/24', 'qwerty');
+insert into customer values('000003', 'Manny Matthews', '48 Blue Sky Way', '20/01/25', 'password');
+insert into customer values('000004', 'Maradin Leo', '34 Wacky Street', '14/08/25', 'strongPassword');
 ''')
 
 
@@ -359,7 +360,7 @@ insert into works_at values('Ottawa Hotels', '14 Pleasant Park Road', 100039012,
 insert into works_at values('Ottawa Hotels', '92 Pineview Crescent', 100040123, 'Porter');
 ''')
 
-cur.execute("drop table if exists room;")
+cur.execute("drop table if exists room cascade;")
 
 cur.execute('''create table room (
                     room_id int,

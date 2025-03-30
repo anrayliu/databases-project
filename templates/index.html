@@ -8,36 +8,8 @@
 
 {% block body %}
 <div class="content">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-	
-	<h2>Search</h2> 
 
-	<form class="header" action="/results" method="GET">
-		<label for="chain">Chain:</label>
-		<select name="chain" id="chain">
-			{% for chain in hotel_chains %}
-			<option value={{chain[0]}}>{{chain[0]}}</option>
-			{% endfor %}
-		</select>
-
-		<label for="location">Location:</label>
-		<select name="location" id="location">
-			{% for hotel in hotels %}
-			<option value={{hotel[3]}}>{{hotel[3]}}</option>
-			{% endfor %}
-		</select>
-
-		<label for="capacity">Travelers:</label>
-		<input name="capacity" id="capacity" type="number" step="0">
-
-
-		<input type="submit">
-	</form>
->>>>>>> Stashed changes
+	<p><a href="/login">Login</a></p>
 
 	<h1>Hotel chains</h1>
 
@@ -67,6 +39,7 @@
 	{% endif %}
 
 	<br>
+
 	<h2>Add chain</h2> 
 
 	<form action="/" method="POST">
@@ -85,8 +58,7 @@
 	</form>
 
 	<br>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 	<h2>Search</h2> 
 
 	<form action="/results" method="GET">
@@ -124,11 +96,6 @@
 		<input type="reset">
 		<input type="submit">
 	</form>
-
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
 </div>
 
