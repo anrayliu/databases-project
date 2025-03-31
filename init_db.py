@@ -675,6 +675,7 @@ cur.execute('''create table amenities (
                 );
             ''')
 
+
 cur.execute('''
 -- Ottawa Hotels - 303 Sandy Street
 insert into amenities values('Ottawa Hotels', '303 Sandy Street', 100001, 'TV');

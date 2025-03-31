@@ -100,7 +100,8 @@ def delete_chain(id):
 def delete_room(id):
 	try:
 		cur.execute("delete from room where room_id = {};".format(id))
-	except psycopg2.Error:
+	except psycopg2.Error as e:
+		print(e)
 		conn.rollback()
 
 	return redirect("/")
@@ -109,7 +110,7 @@ def delete_room(id):
 def edit_room(id):
 	if request.method == "POST":
 		try:
-			cur.execute("update room set expandable='{}', price={}, capacity={}, view='{}' where room_id={}".format("false" if request.form["expandable"] == "None" else request.form["expandable"], request.form["price"], request.form["capacity"], request.form["view"], id))
+			cur.execute("update room set expandable='{}', price={}, capacity={}, view='{}' where room_id={}".format("false" if request.form["expandable"] is None else request.form["expandable"], request.form["price"], request.form["capacity"], request.form["view"], id))
 		except:
 			conn.rollback()
 
@@ -160,32 +161,24 @@ def show_results():
 	view = request.args.get("view")
 	expandable = request.args.get("expandable")
 
-
 	try:
-<<<<<<< HEAD
 		if (int(request.args.get("capacity")) < 1 or int(request.args.get("capacity")) > 9):
-			conn.rollback()
 			return "The minimum capacity for a room is 1 and the maximum capacity for a room is 9."
 
 		if (int(request.args.get("price")) < 0):
-			conn.rollback()
 			return "Please enter a positive value under price."
 
-=======
-		cur.execute('''
-					select * from room join hotel on room.chain_name=hotel.chain_name where room.chain_name='{}'
+		q = '''
+					select * from room natural join hotel where room.chain_name=hotel.chain_name and room.chain_name='{}'
 						and num_rooms={} and capacity={} and room.hotel_address='{}' and price<={} and view='{}' and expandable='{}';				
-					'''.format(chain, total, capacity, loc, price, view, "false" if expandable == "None" else expandable))
->>>>>>> e27ebdb (can now edit/delete rooms)
-		print('''
-					select * from room join hotel on room.chain_name=hotel.chain_name and room.chain_name='{}'
-						and hotel.num_rooms={} and room.capacity={} and hotel.hotel_address='{}' and room.price<{};				
-					'''.format(chain, total, capacity, loc, price))
-		cur.execute('''
-					select * from room join hotel on room.chain_name=hotel.chain_name where room.chain_name='{}'
-						and num_rooms={} and capacity={} and room.hotel_address='{}' and price<={};				
-					'''.format(chain, total, capacity, loc, price))
+					'''.format(chain, total, capacity, loc, price, view, "false" if expandable is None else expandable)
+
+		cur.execute(q) 
+		print(q)
+
 		res = cur.fetchall()
+
+		print(res)
 
 	except psycopg2.Error as e:
 		print(e)
