@@ -288,6 +288,9 @@ cur.execute('''create table booking (
 =======
                     booking_id int,
                     room_id int,
+<<<<<<< HEAD
+>>>>>>> 0f4c96f (start work on booking)
+=======
 >>>>>>> 0f4c96f (start work on booking)
                     constraint pk_booking primary key (customer_id, booking_id),
                     foreign key (customer_id) references customer (id)
@@ -313,6 +316,9 @@ cur.execute('''create table renting (
 =======
                     renting_id int,
                     room_id int,
+<<<<<<< HEAD
+>>>>>>> 0f4c96f (start work on booking)
+=======
 >>>>>>> 0f4c96f (start work on booking)
                     constraint pk_renting primary key (customer_id, renting_id),
                     foreign key (customer_id) references customer (id),
