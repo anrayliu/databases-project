@@ -121,6 +121,11 @@ form .row {
 	font-size: 15px;
 }
 
+.column .flex {
+	display: flex;
+	gap: 15px
+}
+
 form .btn {
 	width: 100%;
 	padding: 12px;
@@ -157,6 +162,17 @@ form .btn:hover {
 }
 
 .home .rhombus2 {
+	position: absolute;
+	top: -25%;
+	right: -25%;
+	width: 700px;
+	height: 700px;
+	background: #1743e3;
+	transform: rotate(45deg);
+	z-index: -1;
+}
+
+.home .employee-decoration {
 	position: absolute;
 	top: -25%;
 	right: -25%;

@@ -25,15 +25,29 @@ def login():
 
             if ((database_customer_username is not None) and (username == str(database_customer_username[0]))):
                 cur.execute("select password from customer where customer_name = '{}'".format(username))
-                database_password = cur.fetchone()
+                database_customer_password = cur.fetchone()
 
-                if ((database_customer_username is not None) and (password == str(database_password[0]))):
+                if ((database_customer_username is not None) and (password == str(database_customer_password[0]))):
                     return redirect("/home")
                 else:
                     return redirect("/login")
             else:
-                cur.execute("select customer_name from customer where customer_name = '{}';".format(username))
+                cur.execute("select employee_name from employee where employee_name = '{}';".format(username))
                 database_employee_username = cur.fetchone()
+
+                if((database_employee_username is not None) and (username == str(database_employee_username[0]))):
+
+                    cur.execute("select password from employee where employee_name = '{}';".format(username))
+
+                    database_employee_password = cur.fetchone()
+
+                    if ((database_employee_password is not None) and (password == str(database_employee_password[0]))):
+                    
+                        return redirect("/employee")
+                    else:
+                        return redirect("/login")
+                else:
+                    return redirect("/login")
  
                 return redirect("/login")
 
@@ -58,6 +72,23 @@ def customer_view():
         return render_template("customer_view.html", hotels=hotels, hotel_chains=hotel_chains)
     else:
         return render_template("customer_view.html")
+
+@app.route("/employee", methods=["POST", "GET"])
+def employee_view():
+    if request.method == "POST":
+        try:
+            cur.execute("select booking_id from booking where customer_id = '{}'".format(request.form["customer_id"]))
+            booking_id = cur.fetchone()
+
+            if ((booking_id is not None) and (request.form["booking_id"] == str(booking_id[0]))):
+                print("GOT IT")
+            else:
+                return redirect("/employee")
+        except psycopg2.Error:
+            conn.rollback()
+            return "something went seriously wrong"
+
+    return render_template("employee_view.html")
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
