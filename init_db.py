@@ -224,52 +224,53 @@ cur.execute("drop table if exists employee cascade;")
 cur.execute('''create table employee (
                     employee_name varchar(30),
                     employee_address varchar(30),
+                    password varchar(30),
                     ssn int,
                     PRIMARY KEY(ssn)
                 );
             ''')
 
 cur.execute('''
-insert into employee values('John Doe', '123 Elm St', 100001234);
-insert into employee values('Jane Smith', '456 Oak St', 100002345);
-insert into employee values('Alice Johnson', '789 Pine St', 100003456);
-insert into employee values('Bob Brown', '101 Maple St', 100004567);
-insert into employee values('Charlie Davis', '202 Birch St', 100005678);
-insert into employee values('Deborah Wilson', '303 Cedar St', 100006789);
-insert into employee values('Edward Moore', '404 Walnut St', 100007890);
-insert into employee values('Fiona White', '505 Chestnut St', 100008901);
-insert into employee values('George Harris', '606 Ash St', 100009012);
-insert into employee values('Hannah Clark', '707 Willow St', 100010123);
-insert into employee values('Isaac Lewis', '808 Redwood St', 100011234);
-insert into employee values('Jackie Scott', '909 Pinecrest St', 100012345);
-insert into employee values('Kevin Martin', '101 Birchwood St', 100013456);
-insert into employee values('Laura Young', '202 Oakdale St', 100014567);
-insert into employee values('Michael King', '303 Maplewood St', 100015678);
-insert into employee values('Nina Adams', '404 Elmwood St', 100016789);
-insert into employee values('Oscar Nelson', '505 Oakview St', 100017890);
-insert into employee values('Patricia Carter', '606 Ashwood St', 100018901);
-insert into employee values('Quinn Mitchell', '707 Cedarwood St', 100019012);
-insert into employee values('Rachel Robinson', '808 Chestnutwood St', 100020123);
-insert into employee values('Samuel Clark', '909 Redwoodview St', 100021234);
-insert into employee values('Tina Perez', '101 Mapleview St', 100022345);
-insert into employee values('Ursula Lee', '202 Birchview St', 100023456);
-insert into employee values('Victor Hall', '303 Willowview St', 100024567);
-insert into employee values('Wendy Allen', '404 Pineview St', 100025678);
-insert into employee values('Xander Scott', '505 Cedarview St', 100026789);
-insert into employee values('Yvonne Gonzalez', '606 Oakview St', 100027890);
-insert into employee values('Zane Martinez', '707 Redwoodview St', 100028901);
-insert into employee values('Amelia Carter', '808 Pineview St', 100029012);
-insert into employee values('Brandon Clark', '909 Ashview St', 100030123);
-insert into employee values('Carmen Thompson', '101 Willowview St', 100031234);
-insert into employee values('Diana Lewis', '202 Chestnutview St', 100032345);
-insert into employee values('Elliot Harris', '303 Mapleview St', 100033456);
-insert into employee values('Felicia Evans', '404 Oakwood St', 100034567);
-insert into employee values('Graham Walker', '505 Ashwood St', 100035678);
-insert into employee values('Helen Green', '606 Cedarwood St', 100036789);
-insert into employee values('Ian White', '707 Redwood St', 100037890);
-insert into employee values('Julia Young', '808 Pinecrest St', 100038901);
-insert into employee values('Kyle Mitchell', '909 Birch St', 100039012);
-insert into employee values('Lana Moore', '101 Elmwood St', 100040123);
+insert into employee values('John Doe', '123 Elm St', 'password1', 100001234);
+insert into employee values('Jane Smith', '456 Oak St', '123456789', 100002345);
+insert into employee values('Alice Johnson', '789 Pine St', 'qwerty', 100003456);
+insert into employee values('Bob Brown', '101 Maple St', 'strongPassword', 100004567);
+insert into employee values('Charlie Davis', '202 Birch St', 'password', 100005678);
+insert into employee values('Deborah Wilson', '303 Cedar St', 'qwerty', 100006789);
+insert into employee values('Edward Moore', '404 Walnut St', '9876543210', 100007890);
+insert into employee values('Fiona White', '505 Chestnut St', '123456789', 100008901);
+insert into employee values('George Harris', '606 Ash St', '!@#$%^&*()', 100009012);
+insert into employee values('Hannah Clark', '707 Willow St', 'q1w2e3r4t5y6', 100010123);
+insert into employee values('Isaac Lewis', '808 Redwood St', 'abcdefg', 100011234);
+insert into employee values('Jackie Scott', '909 Pinecrest St', 'hijkl', 100012345);
+insert into employee values('Kevin Martin', '101 Birchwood St', 'mnopqr', 100013456);
+insert into employee values('Laura Young', '202 Oakdale St', 'stuvwxyz', 100014567);
+insert into employee values('Michael King', '303 Maplewood St', '12345', 100015678);
+insert into employee values('Nina Adams', '404 Elmwood St', '67890', 100016789);
+insert into employee values('Oscar Nelson', '505 Oakview St', 'zxcvbnm', 100017890);
+insert into employee values('Patricia Carter', '606 Ashwood St', 'asdfghjkl', 100018901);
+insert into employee values('Quinn Mitchell', '707 Cedarwood St', 'qwertyuiop', 100019012);
+insert into employee values('Rachel Robinson', '808 Chestnutwood St', 'qazxswedcvfr', 100020123);
+insert into employee values('Samuel Clark', '909 Redwoodview St', 'bgtnhymjukilop', 100021234);
+insert into employee values('Tina Perez', '101 Mapleview St', '1234567890', 100022345);
+insert into employee values('Ursula Lee', '202 Birchview St', '0987654321', 100023456);
+insert into employee values('Victor Hall', '303 Willowview St', 'valentinoPassword', 100024567);
+insert into employee values('Wendy Allen', '404 Pineview St', 'adamPassoword', 100025678);
+insert into employee values('Xander Scott', '505 Cedarview St', 'anrayPassword', 100026789);
+insert into employee values('Yvonne Gonzalez', '606 Oakview St', '123456789', 100027890);
+insert into employee values('Zane Martinez', '707 Redwoodview St', '1qaz2wsx3edc4rfv', 100028901);
+insert into employee values('Amelia Carter', '808 Pineview St', '5tgb6yhn7ujm', 100029012);
+insert into employee values('Brandon Clark', '909 Ashview St', 'password', 100030123);
+insert into employee values('Carmen Thompson', '101 Willowview St', 'password1', 100031234);
+insert into employee values('Diana Lewis', '202 Chestnutview St', 'password2', 100032345);
+insert into employee values('Elliot Harris', '303 Mapleview St', 'password3', 100033456);
+insert into employee values('Felicia Evans', '404 Oakwood St', 'password4', 100034567);
+insert into employee values('Graham Walker', '505 Ashwood St', 'password5', 100035678);
+insert into employee values('Helen Green', '606 Cedarwood St', 'password6', 100036789);
+insert into employee values('Ian White', '707 Redwood St', 'password7', 100037890);
+insert into employee values('Julia Young', '808 Pinecrest St', 'password8', 100038901);
+insert into employee values('Kyle Mitchell', '909 Birch St', 'password9', 100039012);
+insert into employee values('Lana Moore', '101 Elmwood St', 'password10', 100040123);
 ''')
 
 # why is renting_id in booking?

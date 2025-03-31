@@ -21,17 +21,20 @@ def login():
 
         try:
             cur.execute("select customer_name from customer where customer_name = '{}';".format(username))
-            database_username = cur.fetchone()
+            database_customer_username = cur.fetchone()
 
-            if ((database_username is not None) and (username == str(database_username[0]))):
+            if ((database_customer_username is not None) and (username == str(database_customer_username[0]))):
                 cur.execute("select password from customer where customer_name = '{}'".format(username))
                 database_password = cur.fetchone()
 
-                if ((database_username is not None) and (password == str(database_password[0]))):
+                if ((database_customer_username is not None) and (password == str(database_password[0]))):
                     return redirect("/home")
                 else:
                     return redirect("/login")
             else:
+                cur.execute("select customer_name from customer where customer_name = '{}';".format(username))
+                database_employee_username = cur.fetchone()
+ 
                 return redirect("/login")
 
         except psycopg2.Error:
