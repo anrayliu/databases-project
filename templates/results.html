@@ -15,19 +15,34 @@
 
 	<table>
 		<tr>
-			<th>Name</th>
-			<th>Locations</th>
+			<th>Address</th>
+			<th>Chain name</th>
+			<th>Expandable</th>
+			<th>Price</th>
+			<th>Capacity</th>
+			<th>View</th>
+			<th>Email</th>
+			<th>Rating</th>
+			<th>Num rooms</th>
+			<th>Manager</th>
+
 		</tr>
 		{% for res in results %}
 		<tr>
 			<td>{{res[0]}}</td>
 			<td>{{res[1]}}</td>
+			<td>{{res[3]}}</td>
+			<td>{{res[4]}}</td>
+			<td>{{res[5]}}</td>
+			<td>{{res[6]}}</td>
+			<td>{{res[7]}}</td>
+			<td>{{res[8]}}</td>
+			<td>{{res[9]}}</td>
+			<td>{{res[10]}}</td>
 			<td>
-				<a href="/delete/{{res[0]}}">Delete</a>
-
+				<a href="/deleteroom/{{res[2]}}">Delete</a>
 				<br>
-				
-				<a href="/edit/{{res[0]}}">Edit</a>
+				<a href="/editroom/{{res[2]}}">Edit</a>
 			</td>
 		</tr>
 		{% endfor %}

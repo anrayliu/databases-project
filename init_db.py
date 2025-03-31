@@ -30,7 +30,7 @@ cur.execute('''create table chain_addresses (
                     chain_name varchar(30),
                     central_address varchar(30),
                     CONSTRAINT PK_chain_addresses PRIMARY KEY (chain_name, central_address),
-                    foreign key (chain_name) references hotel_chain(chain_name)
+                    foreign key (chain_name) references hotel_chain(chain_name) on delete cascade
                 );
             ''')
 
@@ -48,7 +48,7 @@ cur.execute('''create table chain_emails (
                     chain_name varchar(30),
                     central_email varchar(30),
                     CONSTRAINT PK_chain_emails PRIMARY KEY (chain_name, central_email),
-                    foreign key (chain_name) references hotel_chain(chain_name)
+                    foreign key (chain_name) references hotel_chain(chain_name) on delete cascade
                 );
             ''')
 
@@ -66,7 +66,7 @@ cur.execute('''create table chain_phone_num (
                     chain_name varchar(30),
                     central_phone_num varchar(30),
                     CONSTRAINT PK_chain_phone_num PRIMARY KEY (chain_name, central_phone_num),
-                    foreign key (chain_name) references hotel_chain(chain_name)
+                    foreign key (chain_name) references hotel_chain(chain_name) on delete cascade
                 );
             ''')
 
@@ -90,7 +90,7 @@ cur.execute('''create table hotel (
                     chain_name varchar(30),
                     manager varchar(30),
                     CONSTRAINT PK_hotel PRIMARY KEY (chain_name, hotel_address),
-                    foreign key (chain_name) references hotel_chain (chain_name)
+                    foreign key (chain_name) references hotel_chain (chain_name) on delete cascade
                 );
             ''')
 
@@ -149,7 +149,7 @@ cur.execute('''create table hotel_phone_num (
                     hotel_address varchar(30),
                     phone_num varchar(30),
                     CONSTRAINT PK_hotel_phone_num PRIMARY KEY (chain_name, hotel_address, phone_num),
-                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address)
+                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address) on delete cascade
                 );
             ''')
 cur.execute('''
@@ -314,7 +314,7 @@ cur.execute('''create table works_at (
                     ssn int, 
                     role varchar(30),
                     constraint pk_works_at primary key (chain_name, hotel_address, ssn),
-                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address),
+                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address) on delete cascade,
                     foreign key (ssn) references employee (ssn)
                 );
             ''')
@@ -374,7 +374,7 @@ cur.execute('''create table room (
                     view varchar(30),
                     constraint pk_room primary key (hotel_address, chain_name, room_id),
                     constraint chk_view check (view = 'mountain' or view = 'ocean'),
-                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address)
+                    foreign key (chain_name, hotel_address) references hotel (chain_name, hotel_address) on delete cascade
                 );
             ''')
 
@@ -672,9 +672,10 @@ cur.execute('''create table amenities (
                     room_id int,
                     amenity varchar(30),
                     constraint pk_amenities primary key (chain_name, hotel_address, room_id, amenity),
-                    foreign key (chain_name, hotel_address, room_id) references room (chain_name, hotel_address, room_id)
+                    foreign key (chain_name, hotel_address, room_id) references room (chain_name, hotel_address, room_id) on delete cascade
                 );
             ''')
+
 
 cur.execute('''
 -- Ottawa Hotels - 303 Sandy Street
@@ -967,7 +968,7 @@ cur.execute('''create table damage (
                     room_id int,
                     damage varchar(30),
                     constraint pk_damage primary key (chain_name, hotel_address, room_id, damage),
-                    foreign key (chain_name, hotel_address, room_id) references room (chain_name, hotel_address, room_id)
+                    foreign key (chain_name, hotel_address, room_id) references room (chain_name, hotel_address, room_id) on delete cascade
                 );
             ''')
 
