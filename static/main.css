@@ -44,7 +44,7 @@ body {
 	left: 0;
 	width: 100%;
 	padding: 30px 8%;
-	background: transparent;
+	background: #1743e3;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -53,7 +53,7 @@ body {
 
 .logo {
 	font-size: 25px;
-	color:#222;
+	color: white;
 	text-decoration: none;
 	font-weight: 600;
 	opacity: 0;
@@ -62,7 +62,7 @@ body {
 
 .navbar a {
 	font-size: 18px;
-	color: #222;
+	color: white;
 	text-decoration: none;
 	font-weight: 600;
 	margin: 0 20px;
@@ -72,10 +72,8 @@ body {
 	animation-delay: calc(.2s * var(--i));
 }
 
-.navbar a:hover,
-.navbar a.active {
+.navbar a:hover {
 	color: #1743e3;
-
 }
 
 .link a {
