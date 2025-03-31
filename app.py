@@ -111,11 +111,19 @@ def show_results():
 
 
 	try:
-		cur.execute('''
-					select * from room join hotel on room.chain_name=hotel.chain_name where room.chain_name='{}'
-						and num_rooms={} and capacity={} and room.hotel_address='{}' and price<={};				
-					'''.format(chain, total, capacity, loc, price))
+		if (int(request.args.get("capacity")) < 1 or int(request.args.get("capacity")) > 9):
+			conn.rollback()
+			return "The minimum capacity for a room is 1 and the maximum capacity for a room is 9."
+
+		if (int(request.args.get("price")) < 0):
+			conn.rollback()
+			return "Please enter a positive value under price."
+
 		print('''
+					select * from room join hotel on room.chain_name=hotel.chain_name and room.chain_name='{}'
+						and hotel.num_rooms={} and room.capacity={} and hotel.hotel_address='{}' and room.price<{};				
+					'''.format(chain, total, capacity, loc, price))
+		cur.execute('''
 					select * from room join hotel on room.chain_name=hotel.chain_name where room.chain_name='{}'
 						and num_rooms={} and capacity={} and room.hotel_address='{}' and price<={};				
 					'''.format(chain, total, capacity, loc, price))

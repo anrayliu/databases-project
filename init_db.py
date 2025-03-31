@@ -17,11 +17,11 @@ cur.execute('''create table hotel_chain (
             ''')
 
 cur.execute('''
-insert into hotel_chain values('Ottawa Hotels', 5);
-insert into hotel_chain values('Comfort Stay', 100);
-insert into hotel_chain values('Maximize Hotels', 1000);
-insert into hotel_chain values('Klaradon', 10);
-insert into hotel_chain values('Rosenblatt Hotels', 20);
+insert into hotel_chain values('Ottawa Hotels', 8);
+insert into hotel_chain values('Comfort Stay', 8);
+insert into hotel_chain values('Maximize Hotels', 8);
+insert into hotel_chain values('Klaradon', 8);
+insert into hotel_chain values('Rosenblatt Hotels', 8);
 ''')
 
 cur.execute("drop table if exists chain_addresses;")
@@ -95,51 +95,51 @@ cur.execute('''create table hotel (
             ''')
 
 cur.execute('''
-insert into hotel values('otthotel.sandyhill@gmail.com', 4, 100, '303 Sandy Street', 'Ottawa Hotels', 'John Dosely');
-insert into hotel values('otthotel.gatineau@gmail.com', 3, 80, '402 Tremblent Way', 'Ottawa Hotels', 'Jane Dosely');
-insert into hotel values('otthotel.elgin@gmail.com', 2, 20, '45 Elgin Street', 'Ottawa Hotels', 'Luke Peters');
-insert into hotel values('otthotel.rideau@gmail.com', 3, 100, '201 Rideau Street', 'Ottawa Hotels', 'Victor Matthews');
-insert into hotel values('otthotel.kanata@gmail.com', 3, 80, '39 Snow Drive', 'Ottawa Hotels', 'Joshua Kayley');
-insert into hotel values('otthotel.stittsville@gmail.com', 2, 50, '17 Autumn Street', 'Ottawa Hotels', 'Anray Liu');
-insert into hotel values('otthotel.westOtt@gmail.com', 4, 50, '92 Pineview Crescent', 'Ottawa Hotels', 'Willard Hickling');
-insert into hotel values('otthotel.urbandale@gmail.com', 2, 10, '14 Pleasant Park Road', 'Ottawa Hotels', 'Roberto Haisty');
+insert into hotel values('otthotel.sandyhill@gmail.com', 4, 5, '303 Sandy Street', 'Ottawa Hotels', 'John Dosely');
+insert into hotel values('otthotel.gatineau@gmail.com', 3, 5, '402 Tremblent Way', 'Ottawa Hotels', 'Jane Dosely');
+insert into hotel values('otthotel.elgin@gmail.com', 2, 5, '45 Elgin Street', 'Ottawa Hotels', 'Luke Peters');
+insert into hotel values('otthotel.rideau@gmail.com', 3, 5, '201 Rideau Street', 'Ottawa Hotels', 'Victor Matthews');
+insert into hotel values('otthotel.kanata@gmail.com', 3, 5, '39 Snow Drive', 'Ottawa Hotels', 'Joshua Kayley');
+insert into hotel values('otthotel.stittsville@gmail.com', 2, 5, '17 Autumn Street', 'Ottawa Hotels', 'Anray Liu');
+insert into hotel values('otthotel.westOtt@gmail.com', 4, 5, '92 Pineview Crescent', 'Ottawa Hotels', 'Willard Hickling');
+insert into hotel values('otthotel.urbandale@gmail.com', 2, 5, '14 Pleasant Park Road', 'Ottawa Hotels', 'Roberto Haisty');
 
 
-insert into hotel values('comfstayOttawa@hotmail.com', 2, 20, '333 Bresserer Street', 'Comfort Stay', 'Sammy Ross');
-insert into hotel values('comfstayGatineau@hotmail.com', 5, 200, '154 Wrightville Way', 'Comfort Stay', 'Charlie E. Hook');
-insert into hotel values('comfstayElgin@hotmail.com', 2, 100, '46 Elgin Street', 'Comfort Stay', 'Frederick Spurgin');
-insert into hotel values('comfstayKanata@hotmail.com', 3, 50, '30 Qualicum Street', 'Comfort Stay', 'Milton Shwift');
-insert into hotel values('comfstayLynwood@hotmail.com', 4, 25, '53 Ascot Avenue', 'Comfort Stay', 'Johnathan Rico');
-insert into hotel values('comfstayWestcliffe@hotmail.com', 2, 20, '62 Seyton Drive', 'Comfort Stay', 'Frank Browser');
-insert into hotel values('comfstayArlington@hotmail.com', 4, 70, '38 McClellan Road', 'Comfort Stay', 'Bertha Leamy');
-insert into hotel values('comfstayMerivale@hotmail.com', 1, 10, '48 Capital Drive', 'Comfort Stay', 'Jamie Thomas');
+insert into hotel values('comfstayOttawa@hotmail.com', 2, 5, '333 Bresserer Street', 'Comfort Stay', 'Sammy Ross');
+insert into hotel values('comfstayGatineau@hotmail.com', 5, 5, '154 Wrightville Way', 'Comfort Stay', 'Charlie E. Hook');
+insert into hotel values('comfstayElgin@hotmail.com', 2, 5, '46 Elgin Street', 'Comfort Stay', 'Frederick Spurgin');
+insert into hotel values('comfstayKanata@hotmail.com', 3, 5, '30 Qualicum Street', 'Comfort Stay', 'Milton Shwift');
+insert into hotel values('comfstayLynwood@hotmail.com', 4, 5, '53 Ascot Avenue', 'Comfort Stay', 'Johnathan Rico');
+insert into hotel values('comfstayWestcliffe@hotmail.com', 2, 5, '62 Seyton Drive', 'Comfort Stay', 'Frank Browser');
+insert into hotel values('comfstayArlington@hotmail.com', 4, 5, '38 McClellan Road', 'Comfort Stay', 'Bertha Leamy');
+insert into hotel values('comfstayMerivale@hotmail.com', 1, 5, '48 Capital Drive', 'Comfort Stay', 'Jamie Thomas');
 
-insert into hotel values('maximizeOttawa@gmail.com', 5, 50, '59 Main Street', 'Maximize Hotels', 'Elisha Travers');
-insert into hotel values('maximizeNewYork@gmail.com', 4, 120, '72 Broadway Ave', 'Maximize Hotels', 'Sarah Johnson');
-insert into hotel values('maximizeParis@gmail.com', 3, 90, '15 Rue de la Paix', 'Maximize Hotels', 'Lucie Dupont');
-insert into hotel values('maximizeCalifornia@gmail.com', 5, 200, '100 Sunset Blvd', 'Maximize Hotels', 'Mark Thompson');
-insert into hotel values('maximizeLondon@gmail.com', 4, 150, '47 Oxford Street', 'Maximize Hotels', 'Emma Parker');
-insert into hotel values('maximizeTokyo@gmail.com', 3, 110, '300 Shibuya Crossing', 'Maximize Hotels', 'Hiroshi Tanaka');
-insert into hotel values('maximizeMountainLodge@gmail.com', 5, 180, '100 Mountain View Road', 'Maximize Hotels', 'James Mitchell');
-insert into hotel values('maximizeCoastalEscape@gmail.com', 4, 130, '21 Beachside Drive', 'Maximize Hotels', 'Nina Williams');
+insert into hotel values('maximizeOttawa@gmail.com', 5, 5, '59 Main Street', 'Maximize Hotels', 'Elisha Travers');
+insert into hotel values('maximizeNewYork@gmail.com', 4, 5, '72 Broadway Ave', 'Maximize Hotels', 'Sarah Johnson');
+insert into hotel values('maximizeParis@gmail.com', 3, 5, '15 Rue de la Paix', 'Maximize Hotels', 'Lucie Dupont');
+insert into hotel values('maximizeCalifornia@gmail.com', 5, 5, '100 Sunset Blvd', 'Maximize Hotels', 'Mark Thompson');
+insert into hotel values('maximizeLondon@gmail.com', 4, 5, '47 Oxford Street', 'Maximize Hotels', 'Emma Parker');
+insert into hotel values('maximizeTokyo@gmail.com', 3, 5, '300 Shibuya Crossing', 'Maximize Hotels', 'Hiroshi Tanaka');
+insert into hotel values('maximizeMountainLodge@gmail.com', 5, 5, '100 Mountain View Road', 'Maximize Hotels', 'James Mitchell');
+insert into hotel values('maximizeCoastalEscape@gmail.com', 4, 5, '21 Beachside Drive', 'Maximize Hotels', 'Nina Williams');
 
-insert into hotel values('klaradonBurlington@gmail.com', 4, 70, '35 Lakeshore Drive', 'Klaradon', 'Manny Stevens');
-insert into hotel values('klaradonWaterdown@gmail.com', 3, 20, '35 Humphrey Drive', 'Klaradon', 'Matthew Boyle');
-insert into hotel values('klaradonToronto@gmail.com', 3, 85, '45 Queen Street', 'Klaradon', 'Lisa Green');
+insert into hotel values('klaradonBurlington@gmail.com', 4, 5, '35 Lakeshore Drive', 'Klaradon', 'Manny Stevens');
+insert into hotel values('klaradonWaterdown@gmail.com', 3, 5, '35 Humphrey Drive', 'Klaradon', 'Matthew Boyle');
+insert into hotel values('klaradonToronto@gmail.com', 3, 5, '45 Queen Street', 'Klaradon', 'Lisa Green');
 insert into hotel values('klaradonVancouver@gmail.com', 5, 150, '120 Pacific Blvd', 'Klaradon', 'John Harris');
-insert into hotel values('klaradonOttawa@gmail.com', 4, 100, '60 Elgin Street', 'Klaradon', 'Rachel Adams');
-insert into hotel values('klaradonCalgary@gmail.com', 3, 95, '10 Calgary Road', 'Klaradon', 'David Brown');
-insert into hotel values('klaradonMontreal@gmail.com', 5, 130, '75 Saint Catherine Street', 'Klaradon', 'Jessica Lee');
-insert into hotel values('klaradonQuebecCity@gmail.com', 4, 110, '22 Old Port Road', 'Klaradon', 'Michael Roberts');
+insert into hotel values('klaradonOttawa@gmail.com', 4, 5, '60 Elgin Street', 'Klaradon', 'Rachel Adams');
+insert into hotel values('klaradonCalgary@gmail.com', 3, 5, '10 Calgary Road', 'Klaradon', 'David Brown');
+insert into hotel values('klaradonMontreal@gmail.com', 5, 5, '75 Saint Catherine Street', 'Klaradon', 'Jessica Lee');
+insert into hotel values('klaradonQuebecCity@gmail.com', 4, 5, '22 Old Port Road', 'Klaradon', 'Michael Roberts');
 
-insert into hotel values('rosenblatToronto@gmail.com', 5, 70, '812 Stittsville Street', 'Rosenblatt Hotels', 'Atom Rosenblatt');
-insert into hotel values('rosenblattVancouver@gmail.com', 4, 120, '214 Granville Street', 'Rosenblatt Hotels', 'Sophie Cohen');
-insert into hotel values('rosenblattMontreal@gmail.com', 3, 80, '67 Crescent Street', 'Rosenblatt Hotels', 'Daniel Kim');
-insert into hotel values('rosenblattCalgary@gmail.com', 5, 150, '98 16th Avenue NW', 'Rosenblatt Hotels', 'Lena Patel');
-insert into hotel values('rosenblattOttawa@gmail.com', 4, 100, '45 Wellington Street', 'Rosenblatt Hotels', 'Matthew Davis');
-insert into hotel values('rosenblattQuebecCity@gmail.com', 3, 90, '50 Rue Saint-Jean', 'Rosenblatt Hotels', 'Chloe Lee');
-insert into hotel values('rosenblattEdmonton@gmail.com', 5, 180, '123 Jasper Avenue', 'Rosenblatt Hotels', 'Ethan Smith');
-insert into hotel values('rosenblattWinnipeg@gmail.com', 4, 110, '550 Main Street', 'Rosenblatt Hotels', 'Olivia Martinez');
+insert into hotel values('rosenblatToronto@gmail.com', 5, 5, '812 Stittsville Street', 'Rosenblatt Hotels', 'Atom Rosenblatt');
+insert into hotel values('rosenblattVancouver@gmail.com', 4, 5, '214 Granville Street', 'Rosenblatt Hotels', 'Sophie Cohen');
+insert into hotel values('rosenblattMontreal@gmail.com', 3, 5, '67 Crescent Street', 'Rosenblatt Hotels', 'Daniel Kim');
+insert into hotel values('rosenblattCalgary@gmail.com', 5, 5, '98 16th Avenue NW', 'Rosenblatt Hotels', 'Lena Patel');
+insert into hotel values('rosenblattOttawa@gmail.com', 4, 5, '45 Wellington Street', 'Rosenblatt Hotels', 'Matthew Davis');
+insert into hotel values('rosenblattQuebecCity@gmail.com', 3, 5, '50 Rue Saint-Jean', 'Rosenblatt Hotels', 'Chloe Lee');
+insert into hotel values('rosenblattEdmonton@gmail.com', 5, 5, '123 Jasper Avenue', 'Rosenblatt Hotels', 'Ethan Smith');
+insert into hotel values('rosenblattWinnipeg@gmail.com', 4, 5, '550 Main Street', 'Rosenblatt Hotels', 'Olivia Martinez');
 ''')
 
 cur.execute("drop table if exists hotel_phone_num;")
