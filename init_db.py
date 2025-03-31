@@ -285,6 +285,7 @@ cur.execute('''create table booking (
                     customer_id int,
                     booking_id serial,
                     room_id int,
+                    booking_id int not null auto_increment,
                     constraint pk_booking primary key (customer_id, booking_id),
                     foreign key (customer_id) references customer (id)
                 );
@@ -306,6 +307,7 @@ cur.execute('''create table renting (
                     ssn int,
                     renting_id serial,
                     room_id int,
+                    renting_id int not null auto_increment,
                     constraint pk_renting primary key (customer_id, renting_id),
                     foreign key (customer_id) references customer (id),
                     foreign key (ssn) references employee (ssn)
