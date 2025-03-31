@@ -90,7 +90,8 @@ def employee_view():
             booking_id = cur.fetchone()
 
             if ((booking_id is not None) and (request.form["booking_id"] == str(booking_id[0]))):
-                print("GOT HERE")
+				cur.execute("delete from booking where booking.booking_id = booking_id;")
+				cur.execute("insert into renting values(customer_id, ssn);")
             else:
                 return redirect("/employee")
         except psycopg2.Error:
