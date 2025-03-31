@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>ComfortManagment</title>
+{% endblock %}
+
+{% block body %}
+	<header class="header">
+		<a href="#" class="logo">AVAhotels.</a>
+
+		<nav class="navbar">
+			<a href="#" style="--i:1;" class="active">Home</a>
+			<a href="#" style="--i:2;">Hotels</a>
+			<a href="#" style="--i:3;">Book</a>
+		</nav>
+
+		<nav class="link">
+			<a href="/login">Logout</a>
+		</nav>
+	</header>
+
+	<section class="home">
+		<div class="home-content">
+			<h1>Discover New Experiences.</h1>
+			<h3>Where to?</h3>
+			
+			<form action="/home" method="GET">
+				<div class="row">
+					<div class="column">
+						<div class="input-box">
+							<label for="chain_name">Hotel Chain:</label>
+							<input name="chain_name" type="text" placeholder="ABC Hotels">
+						</div>
+						<div class="input-box">
+							<label for="location">Location:</label>
+							<input name="location" type="text" placeholder="123 Main St.">
+						</div>
+						<div class="input-box">
+							<label for="start_date">Start Date:</label>
+							<input name="start_date" type="date" id="start_date">
+						</div>
+					</div>
+
+					<div class="column">
+						<div class="input-box">
+							<label for="travellers">Travellers:</label>
+							<input name="travellers" type="number" placeholder="#" step="0">
+						</div>
+						<div class="input-box">
+							<label for="max_price">Price Under:</label>
+							<input name="max_price" type="number" placeholder="150.00" step="0.01">
+						</div>
+						<div class="input-box">
+							<label for="end_date">End Date:</label>
+							<input name="end_date" type="date" id="end_date">
+						</div>
+					</div>
+	
+				</div>
+				
+				<button type="submit" class="btn">Submit</button>
+			</form>
+		</div>
+
+		<div class="home-decoration">
+			<div class="rhombus"></div>
+		</div>
+
+		<div class="rhombus2"></div>
+	</section>
+{% endblock %}

@@ -28,7 +28,7 @@ def login():
                 database_password = cur.fetchone()
 
                 if ((database_username is not None) and (password == str(database_password[0]))):
-                    return redirect("/")
+                    return redirect("/home")
                 else:
                     return redirect("/login")
             else:
@@ -39,6 +39,22 @@ def login():
             return "something went seriously wrong"
 
     return render_template("login.html")
+
+@app.route("/home", methods=["POST", "GET"])
+def customer_view():
+    if request.method == "GET":
+        try:
+            cur.execute("select * from hotel_chain")
+            hotel_chains = cur.fetchall()
+            cur.execute("select * from hotel")
+            hotels = cur.fetchall()
+        except psycopg2.Error:
+            conn.rollback()
+            return "something went seriously wrong"
+
+        return render_template("customer_view.html", hotels=hotels, hotel_chains=hotel_chains)
+    else:
+        return render_template("customer_view.html")
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
