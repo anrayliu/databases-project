@@ -191,8 +191,8 @@ def edit_chain(id):
 		return render_template("edit_chain.html", chain=chain)
 
 
-@app.route("/results")
-def show_results():
+@app.route("/results-customer")
+def show_results_customer():
 
 	start = request.args.get("start_date")
 	end = request.args.get("end_date")
@@ -228,7 +228,54 @@ def show_results():
 		conn.rollback()
 		return "something went seriously wrong"
 
-	return render_template("results.html", results=res)
+	return render_template("results_customer.html", results=res)
+
+@app.route("/book", methods=["POST", "GET"])
+def book():
+    if request.method == "POST":
+        return redirect("/home")
+    else:
+        return redirect("/home")
+
+@app.route("/results-employee")
+def show_results_employee():
+
+	start = request.args.get("start_date")
+	end = request.args.get("end_date")
+	capacity = request.args.get("capacity")
+	total = request.args.get("total_capacity")
+	chain = request.args.get("chain")
+	loc = request.args.get("location")
+	price = request.args.get("price")
+	view = request.args.get("view")
+	expandable = request.args.get("expandable")
+
+	try:
+		if (int(request.args.get("capacity")) < 1 or int(request.args.get("capacity")) > 9):
+			return "The minimum capacity for a room is 1 and the maximum capacity for a room is 9."
+
+		if (int(request.args.get("price")) < 0):
+			return "Please enter a positive value under price."
+
+		q = '''
+					select * from room natural join hotel where room.chain_name=hotel.chain_name and room.chain_name='{}'
+						and capacity={} and room.hotel_address='{}' and price<={} and view='{}' and expandable='{}';				
+					'''.format(chain, capacity, loc, price, view, "false" if expandable is None else expandable)
+
+		cur.execute(q) 
+		print(q)
+
+		res = cur.fetchall()
+
+		print(res)
+
+	except psycopg2.Error as e:
+		print(e)
+		conn.rollback()
+		return "something went seriously wrong"
+
+	return render_template("results_customer.html", results=res)
+
 
 
 if __name__ == "__main__":

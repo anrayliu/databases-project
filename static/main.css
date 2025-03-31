@@ -22,12 +22,20 @@ body {
 .content td, 
 .content th {
 	border: 1px;
-	text-align: left;
+	text-align: center;
 	padding: 8px;
 }
 
 .content tr:nth-child(even) {
 	background-color: #dddddd;
+}
+
+.content button {
+	width: 100%
+}
+
+.content button:hover {
+	background: transparent;
 }
 
 .header {
