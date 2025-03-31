@@ -27,11 +27,9 @@
 			<td>{{chain[0]}}</td>
 			<td>{{chain[1]}}</td>
 			<td>
-				<a href="/delete/{{chain[0]}}">Delete</a>
-
+				<a href="/deletechain/{{chain[0]}}">Delete</a>
 				<br>
-				
-				<a href="/edit/{{chain[0]}}">Edit</a>
+				<a href="/editchain/{{chain[0]}}">Edit</a>
 			</td>
 		</tr>
 		{% endfor %}
@@ -90,6 +88,15 @@
 
 		<label for="price">Price under:</label>
 		<input name="price" id="price" type="number" step="0.01">
+
+		<label for="expandable">Expandable:</label>
+		<input type="checkbox" name="expandable" id="expandable" checked="true">
+
+		<label for="view">View:</label>
+		<select name="view" id="view">
+			<option value="mountain">mountain</option>
+			<option value="ocean">ocean</option>
+		</select>
 
 		<br>
 

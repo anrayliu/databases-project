@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Change</title>
+<title>Edit chain</title>
 {% endblock %}
 
 
@@ -12,12 +12,7 @@
 		Update hotel chain
 	</h1>
 
-	<form action="/edit/{{chain[0]}}" method="POST">
-		<label for="chain_name">Change name:</label>
-		<input name="chain_name" id="chain_name" type="text">
-
-		<br>
-
+	<form action="/editchain/{{chain[0]}}" method="POST">
 		<label for="num_hotels">Change number of hotels:</label>
 		<input name="num_hotels" id="num_hotels" type="number" step="0">
 

@@ -86,23 +86,53 @@ def index():
 
 		return render_template("index.html", hotels=hotels, hotel_chains=hotel_chains)
 
-
-@app.route("/delete/<string:id>")
-def delete(id):
+@app.route("/deletechain/<string:id>")
+def delete_chain(id):
 	try:
-		cur.execute("delete from hotel_chain where chain_name = '{}'".format(id))
+		cur.execute("delete from hotel_chain where chain_name = '{}';".format(id))
+	except psycopg2.Error as e:
+		print(e)
+		conn.rollback()
+
+	return redirect("/")
+
+@app.route("/deleteroom/<int:id>")
+def delete_room(id):
+	try:
+		cur.execute("delete from room where room_id = {};".format(id))
 	except psycopg2.Error:
 		conn.rollback()
 
 	return redirect("/")
 
-
-@app.route("/edit/<string:id>", methods=["GET", "POST"])
-def edit(id):
+@app.route("/editroom/<int:id>", methods=["GET", "POST"])
+def edit_room(id):
 	if request.method == "POST":
 		try:
-			cur.execute("update hotel_chain set chain_name='{}', num_hotels='{}' where chain_name='{}'".format(request.form["chain_name"], request.form["num_hotels"], id))
+			cur.execute("update room set expandable='{}', price={}, capacity={}, view='{}' where room_id={}".format("false" if request.form["expandable"] == "None" else request.form["expandable"], request.form["price"], request.form["capacity"], request.form["view"], id))
+		except:
+			conn.rollback()
+
+		return redirect("/")
+	else:
+		try:
+			cur.execute("select * from room where room_id={}".format(id))
+			room = cur.fetchone()
 		except psycopg2.Error:
+			conn.rollback()
+			return "something went seriously wrong"
+
+		return render_template("edit_room.html", room=room)
+
+@app.route("/editchain/<string:id>", methods=["GET", "POST"])
+def edit_chain(id):
+	if request.method == "POST":
+		try:
+			cur.execute("update hotel_chain set num_hotels={} where chain_name='{}'".format(request.form["num_hotels"], id))
+		except psycopg2.Error as e:
+			print("something went seriously wrong")
+			print(e)
+
 			conn.rollback()
 
 		return redirect("/")
@@ -114,7 +144,7 @@ def edit(id):
 			conn.rollback()
 			return "something went seriously wrong"
 
-		return render_template("edit.html", chain=chain)
+		return render_template("edit_chain.html", chain=chain)
 
 
 @app.route("/results")
@@ -127,9 +157,12 @@ def show_results():
 	chain = request.args.get("chain")
 	loc = request.args.get("location")
 	price = request.args.get("price")
+	view = request.args.get("view")
+	expandable = request.args.get("expandable")
 
 
 	try:
+<<<<<<< HEAD
 		if (int(request.args.get("capacity")) < 1 or int(request.args.get("capacity")) > 9):
 			conn.rollback()
 			return "The minimum capacity for a room is 1 and the maximum capacity for a room is 9."
@@ -138,6 +171,12 @@ def show_results():
 			conn.rollback()
 			return "Please enter a positive value under price."
 
+=======
+		cur.execute('''
+					select * from room join hotel on room.chain_name=hotel.chain_name where room.chain_name='{}'
+						and num_rooms={} and capacity={} and room.hotel_address='{}' and price<={} and view='{}' and expandable='{}';				
+					'''.format(chain, total, capacity, loc, price, view, "false" if expandable == "None" else expandable))
+>>>>>>> e27ebdb (can now edit/delete rooms)
 		print('''
 					select * from room join hotel on room.chain_name=hotel.chain_name and room.chain_name='{}'
 						and hotel.num_rooms={} and room.capacity={} and hotel.hotel_address='{}' and room.price<{};				
