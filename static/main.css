@@ -2,11 +2,32 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: "Poppings", sans-serif;
+	font-family: "Poppins", sans-serif;
 }
 
 body {
 	background-color: #eaeaea;
+}
+
+.content {
+	padding: 50px;
+}
+
+.content table {
+	font-family: "Poppins", sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.content td, 
+.content th {
+	border: 1px;
+	text-align: left;
+	padding: 8px;
+}
+
+.content tr:nth-child(even) {
+	background-color: #dddddd;
 }
 
 .header {
@@ -116,6 +137,14 @@ form .row {
 .input-box input {
 	width: 100%;
 	padding: 10px 15px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 15px;
+}
+
+.input-box select {
+	width: 100%;
+	padding: 10px;
 	border: 1px solid #ccc;
 	border-radius: 6px;
 	font-size: 15px;

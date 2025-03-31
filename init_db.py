@@ -289,6 +289,10 @@ cur.execute('''create table booking (
                 );
             ''')
 
+cur.execute('''
+insert into booking values('000004', '100001');
+''')
+
 # also removed booking_id from renting
 # removed:
 # booking_id int,
@@ -382,7 +386,7 @@ cur.execute("drop table if exists amenities;")
 
 cur.execute('''
 -- Ottawa Hotels - 303 Sandy Street
-insert into room values('100001', '303 Sandy Street', 'Ottawa Hotels', true, 120.00, 1, 'mountain');
+insert into room values('100001', '303 Sandy Street', 'Ottawa Hotels', true, 120.00, 5, 'mountain');
 insert into room values('100002', '303 Sandy Street', 'Ottawa Hotels', false, 160.00, 2, 'ocean');
 insert into room values('100003', '303 Sandy Street', 'Ottawa Hotels', true, 210.00, 3, 'mountain');
 insert into room values('100004', '303 Sandy Street', 'Ottawa Hotels', false, 260.00, 4, 'ocean');
@@ -1113,6 +1117,10 @@ cur.execute('''create table booking_history (
                     foreign key (customer_id, past_booking_id) references booking (customer_id, booking_id)
                 );
             ''')
+
+cur.execute('''
+insert into booking_history values('000004', '100001', '100001');
+''')
 
 cur.execute("drop table if exists renting_history;")
 

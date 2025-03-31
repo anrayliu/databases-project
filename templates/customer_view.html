@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-	<title>ComfortManagment</title>
+	<title>AVAhotels.com</title>
 {% endblock %}
 
 {% block body %}
@@ -24,35 +24,56 @@
 			<h1>Discover New Experiences.</h1>
 			<h3>Where to?</h3>
 			
-			<form action="/home" method="GET">
+			<form action="/results" method="GET">
 				<div class="row">
 					<div class="column">
 						<div class="input-box">
-							<label for="chain_name">Hotel Chain:</label>
-							<input name="chain_name" type="text" placeholder="ABC Hotels">
+							<label for="chain">Hotel Chain:</label>
+							<select name="chain" id="chain_name">
+								<option value="">--Select Chain--</option>
+								{% for chain in hotel_chains %}
+								<option value="{{chain[0]}}">{{chain[0]}}</option>
+								{% endfor %}
+							</select>
 						</div>
 						<div class="input-box">
-							<label for="location">Location:</label>
-							<input name="location" type="text" placeholder="123 Main St.">
+							<label for="capacity">Travellers:</label>
+							<input name="capacity" type="number" placeholder="#" step="0">
 						</div>
 						<div class="input-box">
 							<label for="start_date">Start Date:</label>
 							<input name="start_date" type="date" id="start_date">
 						</div>
+						<div class="input-box">
+							<label for="expandable">Expandable:</label>
+							<input name="expandable" type="checkbox" value="true">
+						</div>
 					</div>
 
 					<div class="column">
 						<div class="input-box">
-							<label for="travellers">Travellers:</label>
-							<input name="travellers" type="number" placeholder="#" step="0">
+							<label for="location">Location:</label>
+							<select name="location" id="location">
+								<option value="">--Select Location--</option>
+								{% for hotel in hotels %}
+								<option value="{{hotel[3]}}">{{hotel[3]}}</option>
+								{% endfor %}
+							</select>
 						</div>
 						<div class="input-box">
-							<label for="max_price">Price Under:</label>
-							<input name="max_price" type="number" placeholder="150.00" step="0.01">
+							<label for="price">Price Under:</label>
+							<input name="price" type="number" placeholder="150.00" step="0.01">
 						</div>
 						<div class="input-box">
 							<label for="end_date">End Date:</label>
 							<input name="end_date" type="date" id="end_date">
+						</div>
+						<div class="input-box">
+							<label for="view">View:</label>
+							<select name="view" id="view">
+								<option value="mountain">Mountain</option>
+								<option value="ocean">Ocean</option>
+							</select>
 						</div>
 					</div>
 	

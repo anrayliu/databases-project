@@ -59,7 +59,16 @@ def login():
 
 @app.route("/home", methods=["POST", "GET"])
 def customer_view():
-    if request.method == "GET":
+    if request.method == "POST":
+        try:
+            cur.execute("insert into hotel_chain values('{}', {});".format(request.form["chain_name"], request.form["num_hotels"]))
+            conn.commit()
+        except psycopg2.Error:
+            conn.rollback()
+            return "something went seriously wrong"
+
+        return redirect("/home")
+    else:
         try:
             cur.execute("select * from hotel_chain")
             hotel_chains = cur.fetchall()
@@ -70,18 +79,18 @@ def customer_view():
             return "something went seriously wrong"
 
         return render_template("customer_view.html", hotels=hotels, hotel_chains=hotel_chains)
-    else:
-        return render_template("customer_view.html")
 
 @app.route("/employee", methods=["POST", "GET"])
 def employee_view():
     if request.method == "POST":
+        booking_entrie = request.form["customer_id"]
+
         try:
             cur.execute("select booking_id from booking where customer_id = '{}'".format(request.form["customer_id"]))
             booking_id = cur.fetchone()
 
             if ((booking_id is not None) and (request.form["booking_id"] == str(booking_id[0]))):
-                print("GOT IT")
+                print("GOT HERE")
             else:
                 return redirect("/employee")
         except psycopg2.Error:
@@ -95,27 +104,30 @@ def register():
     return render_template("register.html")
 
 @app.route("/", methods=["POST", "GET"])
-def index(): 
-	if request.method == "POST":
-		try:
-			cur.execute("insert into hotel_chain values('{}', {});".format(request.form["chain_name"], request.form["num_hotels"]))
-			conn.commit()
-		except psycopg2.Error:
-			conn.rollback()
+def index():
+    return redirect("/login")
+'''    
+    if request.method == "POST":
+        try:
+            cur.execute("insert into hotel_chain values('{}', {});".format(request.form["chain_name"], request.form["num_hotels"]))
+            conn.commit()
+        except psycopg2.Error:
+            conn.rollback()
+            return "something went seriously wrong"
 
-		return redirect("/")
+        return redirect("/")
+    else:
+        try:
+            cur.execute("select * from hotel_chain")
+            hotel_chains = cur.fetchall()
+            cur.execute("select * from hotel")
+            hotels = cur.fetchall()
+        except psycopg2.Error:
+            conn.rollback()
+            return "something went seriously wrong"
 
-	else:
-		try:
-			cur.execute("select * from hotel_chain")
-			hotel_chains = cur.fetchall()
-			cur.execute("select * from hotel")
-			hotels = cur.fetchall()
-		except psycopg2.Error:
-			conn.rollback()
-			return "something went seriously wrong"
-
-		return render_template("index.html", hotels=hotels, hotel_chains=hotel_chains)
+        return render_template("index.html", hotels=hotels, hotel_chains=hotel_chains)
+'''
 
 @app.route("/deletechain/<string:id>")
 def delete_chain(id):
@@ -201,8 +213,8 @@ def show_results():
 
 		q = '''
 					select * from room natural join hotel where room.chain_name=hotel.chain_name and room.chain_name='{}'
-						and num_rooms={} and capacity={} and room.hotel_address='{}' and price<={} and view='{}' and expandable='{}';				
-					'''.format(chain, total, capacity, loc, price, view, "false" if expandable is None else expandable)
+						and capacity={} and room.hotel_address='{}' and price<={} and view='{}' and expandable='{}';				
+					'''.format(chain, capacity, loc, price, view, "false" if expandable is None else expandable)
 
 		cur.execute(q) 
 		print(q)
