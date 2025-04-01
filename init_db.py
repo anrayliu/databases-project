@@ -286,7 +286,7 @@ cur.execute('''create table booking (
                     customer_id int,
                     room_id int,
                     constraint pk_booking primary key (customer_id, booking_id),
-                    foreign key (customer_id) references customer (id)
+                    foreign key (customer_id) references customer (id) on delete cascade
                 );
             ''')
 
@@ -305,13 +305,9 @@ cur.execute('''create table renting (
                     renting_id serial,
                     customer_id int,
                     ssn int,
-<<<<<<< HEAD
-                    renting_id serial,
-=======
->>>>>>> fe3fa52 (allowed bookings to be converted to rentings (not working rn))
                     room_id int,
                     constraint pk_renting primary key (customer_id, renting_id),
-                    foreign key (customer_id) references customer (id),
+                    foreign key (customer_id) references customer (id) on delete cascade,
                     foreign key (ssn) references employee (ssn)
                 );
             ''')
@@ -1119,14 +1115,14 @@ cur.execute('''create table booking_history (
                     booking_id serial,
                     past_booking_id int,
                     constraint pk_booking_history primary key (customer_id, booking_id, past_booking_id),
-                    foreign key (customer_id, booking_id) references booking (customer_id, booking_id),
-                    foreign key (customer_id, past_booking_id) references booking (customer_id, booking_id)
+                    foreign key (customer_id, booking_id) references booking (customer_id, booking_id) on delete cascade,
+                    foreign key (customer_id, past_booking_id) references booking (customer_id, booking_id) on delete cascade
                 );
             ''')
 
-cur.execute('''
-insert into booking_history values('000004', '100001', '100001');
-''')
+# cur.execute('''
+# insert into booking_history values('000004', '100001', '100001');
+# ''')
 
 cur.execute("drop table if exists renting_history;")
 
@@ -1135,8 +1131,8 @@ cur.execute('''create table renting_history (
                     renting_id serial,
                     past_renting_id int,
                     constraint pk_renting_history primary key (customer_id, renting_id, past_renting_id),
-                    foreign key (customer_id, renting_id) references renting (customer_id, renting_id),
-                    foreign key (customer_id, past_renting_id) references renting (customer_id, renting_id)
+                    foreign key (customer_id, renting_id) references renting (customer_id, renting_id) on delete cascade,
+                    foreign key (customer_id, past_renting_id) references renting (customer_id, renting_id) on delete cascade
                 );
             ''')
 

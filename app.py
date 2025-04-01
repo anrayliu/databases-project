@@ -129,8 +129,10 @@ def employee_view():
 	if request.method == "POST":
 		booking_entrie = request.form["customer_id"]
 		try:
-			cur.execute("select booking_id from booking where customer_id = '{}'".format(request.form["customer_id"]))
+			cur.execute("select booking_id from booking where customer_id = {}".format(request.form["customer_id"]))
 			booking_id = cur.fetchone()
+			print(booking_id, request.form["booking_id"], request.form["customer_id"])
+			print("select booking_id from booking where customer_id = {}".format(request.form["customer_id"]))
 			#----------------------------------------Anray Please Figure Out How to Get This If Statement Working-----------------------------------------------------
 			if ((booking_id is not None) and (request.form["booking_id"] == str(booking_id[0]))):
 				cur.execute("delete from booking where booking.booking_id = booking_id;")
@@ -146,9 +148,9 @@ def employee_view():
 				print(res2)
 			else:
 				print("didnt execute our query")
-				print(booking_id, request.form["booking_id"], str(booking_id[0]))
 				return redirect("/employee")
-		except psycopg2.Error:
+		except psycopg2.Error as e:
+			print(e)
 			conn.rollback()
 			return "something went seriously wrong"
 
