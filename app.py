@@ -67,29 +67,31 @@ def login():
 
 @app.route("/home", methods=["POST", "GET"])
 def customer_view():
-    if request.method == "POST":
-        try:
-            cur.execute("insert into hotel_chain values('{}', {});".format(request.form["chain_name"], request.form["num_hotels"]))
-            conn.commit()
-        except psycopg2.Error:
-            conn.rollback()
-            return "something went seriously wrong"
+	if request.method == "POST":
+		try:
+			cur.execute("insert into hotel_chain values('{}', {});".format(request.form["chain_name"], request.form["num_hotels"]))
+			conn.commit()
+		except psycopg2.Error:
+			conn.rollback()
+			return "something went seriously wrong"
+		return redirect("/home")
+	else:
+		try:
+			cur.execute("select * from hotel_chain")
+			hotel_chains = cur.fetchall()
+			cur.execute("select * from hotel")
+			hotels = cur.fetchall()
 
-        return redirect("/home")
-    else:
-        try:
-            cur.execute("select * from hotel_chain")
-            hotel_chains = cur.fetchall()
-            cur.execute("select * from hotel")
-            hotels = cur.fetchall()
+			cur.execute("select * from rooms_per_area")
+			numroom_per_area = cur.fetchall()
 
-            cur.execute("select * from rooms_per_area")
-            numroom_per_area = cur.fetchall()
-        except psycopg2.Error:
-            conn.rollback()
-            return "something went seriously wrong"
-
-        return render_template("customer_view.html", hotels=hotels, hotel_chains=hotel_chains, numroom_per_area=numroom_per_area)
+			cur.execute("select * from total_rooms_per_hotel")
+			total_rooms = cur.fetchall()
+		except psycopg2.Error as e:
+			print(e)
+			conn.rollback()
+			return "something went seriously wrong"
+	return render_template("customer_view.html", hotels=hotels, hotel_chains=hotel_chains, numroom_per_area=numroom_per_area, total_rooms=total_rooms)
 
 @app.route("/employee", methods=["POST", "GET"])
 def employee_view():
@@ -100,7 +102,6 @@ def employee_view():
 			booking_id = cur.fetchone()
 			print(booking_id, request.form["booking_id"], request.form["customer_id"])
 			print("select booking_id from booking where customer_id = {}".format(request.form["customer_id"]))
-			#----------------------------------------Anray Please Figure Out How to Get This If Statement Working-----------------------------------------------------
 			if ((booking_id is not None) and (request.form["booking_id"] == str(booking_id[0]))):
 				cur.execute("delete from booking where booking.booking_id = {};".format(request.form["booking_id"]))
 				cur.execute("insert into renting values({}, {});".format(request.form["ssn"], request.form["customer_id"]))
@@ -119,18 +120,18 @@ def employee_view():
 			print(e)
 			conn.rollback()
 			return "something went seriously wrong"
+	else:
+		try:
+			cur.execute("select * from hotel_chain")
+			hotel_chains = cur.fetchall()
+			cur.execute("select * from hotel")
+			hotels = cur.fetchall()
+		except psycopg2.Error as e:
+			print(e)
+			conn.rollback()
+			return "something went seriously wrong"
 
-    else:
-        try:
-            cur.execute("select * from hotel_chain")
-            hotel_chains = cur.fetchall()
-            cur.execute("select * from hotel")
-            hotels = cur.fetchall()
-        except psycopg2.Error:
-            conn.rollback()
-            return "something went seriously wrong"
-
-        return render_template("employee_view.html", hotels=hotels, hotel_chains=hotel_chains)
+		return render_template("employee_view.html", hotels=hotels, hotel_chains=hotel_chains)
 	return render_template("employee_view.html")
 
 @app.route("/register", methods=["POST", "GET"])

@@ -145,12 +145,14 @@ insert into hotel values('rosenblattWinnipeg@gmail.com', 4, 5, '550 Main Street'
 cur.execute("drop view if exists rooms_per_area;")
 
 cur.execute('''
-                create or replace view rooms_per_area as
+                create view rooms_per_area as
                 select num_rooms, hotel_address
                 from hotel;
             ''')
 
+cur.execute("drop view if exists total_rooms_per_hotel;")
 
+cur.execute("create view total_rooms_per_hotel as (select hotel_address, sum(capacity) as total_capacity from (select * from hotel natural join room where hotel.hotel_address = room.hotel_address) group by hotel_address);")
 
 cur.execute("drop table if exists hotel_phone_num;")
 
