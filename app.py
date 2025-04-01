@@ -231,12 +231,14 @@ def show_results_customer():
 
 	return render_template("results_customer.html", results=res)
 
-@app.route("/book", methods=["POST", "GET"])
+@app.route("/book", methods=["POST"])
 def book():
-    if request.method == "POST":
-        return redirect("/home")
-    else:
-        return redirect("/home")
+	room_id = request.args.get("room_id")
+
+	# add query here to make a new booking
+
+	return render_template("done_booking.html")
+
 
 @app.route("/results-employee")
 def show_results_employee():
