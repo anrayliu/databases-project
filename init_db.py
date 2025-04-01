@@ -126,7 +126,7 @@ insert into hotel values('maximizeCoastalEscape@gmail.com', 4, 5, '21 Beachside 
 insert into hotel values('klaradonBurlington@gmail.com', 4, 5, '35 Lakeshore Drive', 'Klaradon', 'Manny Stevens');
 insert into hotel values('klaradonWaterdown@gmail.com', 3, 5, '35 Humphrey Drive', 'Klaradon', 'Matthew Boyle');
 insert into hotel values('klaradonToronto@gmail.com', 3, 5, '45 Queen Street', 'Klaradon', 'Lisa Green');
-insert into hotel values('klaradonVancouver@gmail.com', 5, 150, '120 Pacific Blvd', 'Klaradon', 'John Harris');
+insert into hotel values('klaradonVancouver@gmail.com', 5, 5, '120 Pacific Blvd', 'Klaradon', 'John Harris');
 insert into hotel values('klaradonOttawa@gmail.com', 4, 5, '60 Elgin Street', 'Klaradon', 'Rachel Adams');
 insert into hotel values('klaradonCalgary@gmail.com', 3, 5, '10 Calgary Road', 'Klaradon', 'David Brown');
 insert into hotel values('klaradonMontreal@gmail.com', 5, 5, '75 Saint Catherine Street', 'Klaradon', 'Jessica Lee');
@@ -292,16 +292,16 @@ insert into employee values('Lana Moore', '101 Elmwood St', 'password10', 100040
 cur.execute("drop table if exists booking cascade;")
 
 cur.execute('''create table booking (
+                    booking_id serial,
                     customer_id int,
-                    booking_id int,
                     room_id int,
                     constraint pk_booking primary key (customer_id, booking_id),
-                    foreign key (customer_id) references customer (id)
+                    foreign key (customer_id) references customer (id) on delete cascade
                 );
             ''')
 
 cur.execute('''
-insert into booking values('000004', '100001');
+insert into booking values('1', '000004', '100001');
 ''')
 
 # also removed booking_id from renting
@@ -312,12 +312,12 @@ insert into booking values('000004', '100001');
 cur.execute("drop table if exists renting cascade;")
 
 cur.execute('''create table renting (
+                    renting_id serial,
                     customer_id int,
                     ssn int,
-                    renting_id int,
                     room_id int,
                     constraint pk_renting primary key (customer_id, renting_id),
-                    foreign key (customer_id) references customer (id),
+                    foreign key (customer_id) references customer (id) on delete cascade,
                     foreign key (ssn) references employee (ssn)
                 );
             ''')
@@ -1122,27 +1122,27 @@ cur.execute("drop table if exists booking_history;")
 
 cur.execute('''create table booking_history (
                     customer_id int,
-                    booking_id int,
+                    booking_id serial,
                     past_booking_id int,
                     constraint pk_booking_history primary key (customer_id, booking_id, past_booking_id),
-                    foreign key (customer_id, booking_id) references booking (customer_id, booking_id),
-                    foreign key (customer_id, past_booking_id) references booking (customer_id, booking_id)
+                    foreign key (customer_id, booking_id) references booking (customer_id, booking_id) on delete cascade,
+                    foreign key (customer_id, past_booking_id) references booking (customer_id, booking_id) on delete cascade
                 );
             ''')
 
-cur.execute('''
-insert into booking_history values('000004', '100001', '100001');
-''')
+# cur.execute('''
+# insert into booking_history values('000004', '100001', '100001');
+# ''')
 
 cur.execute("drop table if exists renting_history;")
 
 cur.execute('''create table renting_history (
                     customer_id int,
-                    renting_id int,
+                    renting_id serial,
                     past_renting_id int,
                     constraint pk_renting_history primary key (customer_id, renting_id, past_renting_id),
-                    foreign key (customer_id, renting_id) references renting (customer_id, renting_id),
-                    foreign key (customer_id, past_renting_id) references renting (customer_id, renting_id)
+                    foreign key (customer_id, renting_id) references renting (customer_id, renting_id) on delete cascade,
+                    foreign key (customer_id, past_renting_id) references renting (customer_id, renting_id) on delete cascade
                 );
             ''')
 
