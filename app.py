@@ -5,6 +5,50 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
+
+def renting_trigger():
+	# Triggers to be used when the customer and employee backend is implemented.
+	cur.execute('''
+	
+
+	create function update_renting_history(renting)
+		Returns trigger AS
+	begin
+	insert into renting_history values(renting.customer_id, renting.ssn, renting.renting_id)
+	return new;
+	end
+	language plpgsql;
+
+	create trigger check_renting_history
+	before update on renting
+	for each row
+	execute procedure update_renting_history(renting)
+	''')
+
+def booking_trigger():
+	cur.execute('''
+	create trigger check_booking_history
+	before update on booking
+	for each row
+	execute procedure update_booking_history(booking)
+	
+	create function update_booking_history(booking)
+		Returns trigger AS
+	begin
+	insert into booking_history values(booking.customer_id, booking.booking_id)
+	return new;
+	end
+	language plpgsql;
+	''')
+
+def make_indexes():
+	cur.execute('''
+	create index fast_room_access on room(room_id);
+	create index fast_hotel_access on hotel(hotel_address);
+	create index fast_employee_access(employee_name);
+	''')
+
+
 def get_db_conn():
 	conn = psycopg2.connect(database="defaultdb",
 							host="pg-147bd20e-databases-project.h.aivencloud.com",
@@ -82,23 +126,33 @@ def customer_view():
 
 @app.route("/employee", methods=["POST", "GET"])
 def employee_view():
-    if request.method == "POST":
-        booking_entrie = request.form["customer_id"]
-
-        try:
-            cur.execute("select booking_id from booking where customer_id = '{}'".format(request.form["customer_id"]))
-            booking_id = cur.fetchone()
-
-            if ((booking_id is not None) and (request.form["booking_id"] == str(booking_id[0]))):
+	if request.method == "POST":
+		booking_entrie = request.form["customer_id"]
+		try:
+			cur.execute("select booking_id from booking where customer_id = '{}'".format(request.form["customer_id"]))
+			booking_id = cur.fetchone()
+			#----------------------------------------Anray Please Figure Out How to Get This If Statement Working-----------------------------------------------------
+			if ((booking_id is not None) and (request.form["booking_id"] == str(booking_id[0]))):
 				cur.execute("delete from booking where booking.booking_id = booking_id;")
 				cur.execute("insert into renting values(customer_id, ssn);")
-            else:
-                return redirect("/employee")
-        except psycopg2.Error:
-            conn.rollback()
-            return "something went seriously wrong"
+				renting_trigger()
+				q1 = "select * from booking;"
+				q2 = "select * from renting;"
+				cur.execute(q1)
+				res = cur.fetchall()
+				print(res)
+				cur.execute(q2)
+				res2 = cur.fetchall()
+				print(res2)
+			else:
+				print("didnt execute our query")
+				print(booking_id, request.form["booking_id"], str(booking_id[0]))
+				return redirect("/employee")
+		except psycopg2.Error:
+			conn.rollback()
+			return "something went seriously wrong"
 
-    return render_template("employee_view.html")
+	return render_template("employee_view.html")
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
@@ -252,7 +306,7 @@ def show_results_employee():
 	price = request.args.get("price")
 	view = request.args.get("view")
 	expandable = request.args.get("expandable")
-
+	
 	try:
 		if (int(request.args.get("capacity")) < 1 or int(request.args.get("capacity")) > 9):
 			return "The minimum capacity for a room is 1 and the maximum capacity for a room is 9."
