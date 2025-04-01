@@ -5,42 +5,6 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
-
-def renting_trigger():
-	# Triggers to be used when the customer and employee backend is implemented.
-	cur.execute('''
-	
-
-	create function update_renting_history(renting)
-		Returns trigger AS
-	begin
-	insert into renting_history values(renting.customer_id, renting.ssn, renting.renting_id)
-	return new;
-	end
-	language plpgsql;
-
-	create trigger check_renting_history
-	before update on renting
-	for each row
-	execute procedure update_renting_history(renting)
-	''')
-
-def booking_trigger():
-	cur.execute('''
-	create trigger check_booking_history
-	before update on booking
-	for each row
-	execute procedure update_booking_history(booking)
-	
-	create function update_booking_history(booking)
-		Returns trigger AS
-	begin
-	insert into booking_history values(booking.customer_id, booking.booking_id)
-	return new;
-	end
-	language plpgsql;
-	''')
-
 def make_indexes():
 	cur.execute('''
 	create index fast_room_access on room(room_id);
@@ -81,13 +45,13 @@ def login():
 
                 if((database_employee_username is not None) and (username == str(database_employee_username[0]))):
 
-                    cur.execute("select password from employee where employee_name = '{}';".format(username))
+                    cur.execute("select ssn from employee where employee_name = '{}';".format(username))
 
-                    database_employee_password = cur.fetchone()
+                    database_employee_ssn = cur.fetchone()
 
-                    if ((database_employee_password is not None) and (password == str(database_employee_password[0]))):
+                    if ((database_employee_ssn is not None) and (password == str(database_employee_ssn[0]))):
                     
-                        return redirect("/employee")
+                        return render_template("employee_view.html", ssn=str(database_employee_ssn[0]))
                     else:
                         return redirect("/login")
                 else:
@@ -135,9 +99,8 @@ def employee_view():
 			print("select booking_id from booking where customer_id = {}".format(request.form["customer_id"]))
 			#----------------------------------------Anray Please Figure Out How to Get This If Statement Working-----------------------------------------------------
 			if ((booking_id is not None) and (request.form["booking_id"] == str(booking_id[0]))):
-				cur.execute("delete from booking where booking.booking_id = booking_id;")
-				cur.execute("insert into renting values(customer_id, ssn);")
-				renting_trigger()
+				cur.execute("delete from booking where booking.booking_id = {};".format(request.form["booking_id"]))
+				cur.execute("insert into renting values({}, {});".format(request.form["ssn"], request.form["customer_id"]))
 				q1 = "select * from booking;"
 				q2 = "select * from renting;"
 				cur.execute(q1)
