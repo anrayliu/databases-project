@@ -74,11 +74,14 @@ def customer_view():
             hotel_chains = cur.fetchall()
             cur.execute("select * from hotel")
             hotels = cur.fetchall()
+
+            cur.execute("select * from rooms_per_area")
+            numroom_per_area = cur.fetchall()
         except psycopg2.Error:
             conn.rollback()
             return "something went seriously wrong"
 
-        return render_template("customer_view.html", hotels=hotels, hotel_chains=hotel_chains)
+        return render_template("customer_view.html", hotels=hotels, hotel_chains=hotel_chains, numroom_per_area=numroom_per_area)
 
 @app.route("/employee", methods=["POST", "GET"])
 def employee_view():
@@ -96,8 +99,17 @@ def employee_view():
         except psycopg2.Error:
             conn.rollback()
             return "something went seriously wrong"
+    else:
+        try:
+            cur.execute("select * from hotel_chain")
+            hotel_chains = cur.fetchall()
+            cur.execute("select * from hotel")
+            hotels = cur.fetchall()
+        except psycopg2.Error:
+            conn.rollback()
+            return "something went seriously wrong"
 
-    return render_template("employee_view.html")
+        return render_template("employee_view.html", hotels=hotels, hotel_chains=hotel_chains)
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
@@ -276,7 +288,7 @@ def show_results_employee():
 		conn.rollback()
 		return "something went seriously wrong"
 
-	return render_template("results_customer.html", results=res)
+	return render_template("results_employee.html", results=res)
 
 
 

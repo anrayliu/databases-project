@@ -70,6 +70,7 @@
 						<div class="input-box">
 							<label for="view">View:</label>
 							<select name="view" id="view">
+								<option value="">--Select View--</option>
 								<option value="mountain">Mountain</option>
 								<option value="ocean">Ocean</option>
 							</select>
@@ -88,9 +89,47 @@
 
 		<div class="rhombus2"></div>
 	</section>
-	<section class="home" id="rooms">
+	<section class="home2" id="rooms">
 		<div class="home-content">
-			<h3>WILL PUT ROOMS PER AREA VIEW HERE</h3>
+			<h1>Rooms per area:</h1>
+			
+			<div class="row">
+
+				{% set halfway = numroom_per_area|length // 2 %}
+				
+				<div class="column">
+					<div class="view-table">
+						<table>
+							<tr>
+								<th>Location:</th>
+								<th>Available Rooms:</th>
+							</tr>
+							{% for i in range(halfway) %}
+							<tr>
+								<td>{{numroom_per_area[i][1]}}</td>
+								<td>{{numroom_per_area[i][0]}}</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+				<div class="column">
+					<div class="view-table">
+						<table>
+							<tr>
+								<th>Location:</th>
+								<th>Available Rooms:</th>
+							</tr>
+							{% for i in range(halfway, numroom_per_area|length) %}
+							<tr>
+								<td>{{numroom_per_area[i][1]}}</td>
+								<td>{{numroom_per_area[i][0]}}</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 {% endblock %}

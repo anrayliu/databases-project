@@ -89,6 +89,18 @@ body {
 	color: grey;
 }
 
+.row {
+	display: flex;
+	flex-direction: row;
+}
+
+.column {
+	flex: 1;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+
 .home {
 	position: relative;
 	width: 100%;
@@ -100,6 +112,17 @@ body {
 	overflow: hidden;
 }
 
+.home2 {
+	position: relative;
+	width: 100%;
+	height: auto;
+	max-height: 200vh;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 50px 8% 0;
+	overflow: hidden;
+}
 .home-content {
 	max-width: 700px;
 }
@@ -119,6 +142,28 @@ body {
 	padding: 40px;
 	background: #fff;
 	border-radius: 10px;
+}
+
+
+.hom-content .view-table {
+	margin: 15px 0;
+}
+
+.view-table table {
+	font-family: "Poppins", sans-serif;
+	width: 100%;
+	padding: 10px;
+}
+
+.home-content td, 
+.home-content th {
+	border: 1px;
+	text-align: center;
+	padding: 8px;
+}
+
+.home-content tr:nth-child(even) {
+	background-color: #dddddd;
 }
 
 form .row {

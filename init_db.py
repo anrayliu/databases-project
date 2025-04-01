@@ -142,6 +142,16 @@ insert into hotel values('rosenblattEdmonton@gmail.com', 5, 5, '123 Jasper Avenu
 insert into hotel values('rosenblattWinnipeg@gmail.com', 4, 5, '550 Main Street', 'Rosenblatt Hotels', 'Olivia Martinez');
 ''')
 
+cur.execute("drop view if exists rooms_per_area;")
+
+cur.execute('''
+                create or replace view rooms_per_area as
+                select num_rooms, hotel_address
+                from hotel;
+            ''')
+
+
+
 cur.execute("drop table if exists hotel_phone_num;")
 
 cur.execute('''create table hotel_phone_num (
