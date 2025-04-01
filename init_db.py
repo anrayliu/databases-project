@@ -289,9 +289,13 @@ cur.execute('''create table booking (
                     booking_id int,
                     room_id int,
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0f4c96f (start work on booking)
 =======
 >>>>>>> 0f4c96f (start work on booking)
+=======
+                    booking_id int not null auto_increment,
+>>>>>>> fa196f9 (resolving merges)
                     constraint pk_booking primary key (customer_id, booking_id),
                     foreign key (customer_id) references customer (id)
                 );
@@ -317,9 +321,13 @@ cur.execute('''create table renting (
                     renting_id int,
                     room_id int,
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0f4c96f (start work on booking)
 =======
 >>>>>>> 0f4c96f (start work on booking)
+=======
+                    renting_id int not null auto_increment,
+>>>>>>> fa196f9 (resolving merges)
                     constraint pk_renting primary key (customer_id, renting_id),
                     foreign key (customer_id) references customer (id),
                     foreign key (ssn) references employee (ssn)
